@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.0",
+  "policy": {
+    "inputs": {
+      "front_rgb": [
+        "tensor(float)",
+        [
+          1,
+          3,
+          144,
+          256
+        ]
+      ],
+      "imu": [
+        "tensor(float)",
+        [
+          1,
+          6
+        ]
+      ],
+      "joint_position": [
+        "tensor(float)",
+        [
+          1,
+          16
+        ]
+      ],
+      "joint_velocity": [
+        "tensor(float)",
+        [
+          1,
+          16
+        ]
+      ],
+      "previous_action": [
+        "tensor(float)",
+        [
+          1,
+          16
+        ]
+      ],
+      "instructions": [
+        "tensor(int64)",
+        [
+          1,
+          11
+        ]
+      ],
+      "memory": [
+        "tensor(float)",
+        [
+          1,
+          "N"
+        ]
+      ]
+    },
+    "outputs": {
+      "action": [
+        "tensor(float)",
+        [
+          1,
+          16
+        ]
+      ],
+      "memory_out": [
+        "tensor(float)",
+        [
+          1,
+          "N"
+        ]
+      ]
+    }
+  },
+  "reader": {
+    "inputs": {
+      "image": [
+        "tensor(float)",
+        [
+          1,
+          3,
+          360,
+          640
+        ]
+      ],
+      "memory": [
+        "tensor(float)",
+        [
+          1,
+          "N"
+        ]
+      ]
+    },
+    "outputs": {
+      "boxes": [
+        "tensor(float)",
+        [
+          1,
+          16,
+          4
+        ]
+      ],
+      "tokens": [
+        "tensor(int64)",
+        [
+          1,
+          16,
+          16
+        ]
+      ],
+      "kinds": [
+        "tensor(int64)",
+        [
+          1,
+          16
+        ]
+      ],
+      "confidence": [
+        "tensor(float)",
+        [
+          1,
+          16
+        ]
+      ],
+      "readable": [
+        "tensor(bool)",
+        [
+          1,
+          16
+        ]
+      ],
+      "memory_out": [
+        "tensor(float)",
+        [
+          1,
+          "N"
+        ]
+      ]
+    }
+  },
+  "text_tokens": [
+    "",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "-",
+    ".",
+    "+"
+  ],
+  "instructions": {
+    "left": 1,
+    "straight": 2,
+    "right": 3,
+    "turn_around": 4
+  },
+  "image_values": "RGB float32, 0 to 1",
+  "control_hz": 50,
+  "physics_hz": 200,
+  "front_camera_hz": 10,
+  "video_fps": 5,
+  "maximum_inference_s": 0.5,
+  "action": "normalized -1 to 1; first 12 leg position offsets, last 4 wheel speeds",
+  "memory": "optional; zero at the start of every route attempt or video",
+  "policy_required_inputs": [
+    "front_rgb",
+    "instructions"
+  ],
+  "policy_optional_inputs": [
+    "imu",
+    "joint_position",
+    "joint_velocity",
+    "previous_action",
+    "memory"
+  ],
+  "reader_optional_inputs": [
+    "memory"
+  ],
+  "memory_size_range": [
+    1,
+    8192
+  ]
+}

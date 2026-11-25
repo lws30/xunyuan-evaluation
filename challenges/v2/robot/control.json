@@ -1,0 +1,56 @@
+{
+  "leg_joint_names": [
+    "fl_hipx_joint",
+    "fl_hipy_joint",
+    "fl_knee_joint",
+    "fr_hipx_joint",
+    "fr_hipy_joint",
+    "fr_knee_joint",
+    "hl_hipx_joint",
+    "hl_hipy_joint",
+    "hl_knee_joint",
+    "hr_hipx_joint",
+    "hr_hipy_joint",
+    "hr_knee_joint"
+  ],
+  "wheel_joint_names": [
+    "fl_wheel_joint",
+    "fr_wheel_joint",
+    "hl_wheel_joint",
+    "hr_wheel_joint"
+  ],
+  "default_joint_pos": [
+    0.05,
+    -0.4363323129985824,
+    1.0,
+    -0.05,
+    -0.4363323129985824,
+    1.0,
+    0.05,
+    0.4363323129985824,
+    -1.0,
+    -0.05,
+    0.4363323129985824,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "leg_scale": [
+    0.25,
+    0.6,
+    0.8,
+    0.25,
+    0.6,
+    0.8,
+    0.25,
+    0.6,
+    0.8,
+    0.25,
+    0.6,
+    0.8
+  ],
+  "wheel_scale": 35.0,
+  "wheel_clip": 35.0
+}

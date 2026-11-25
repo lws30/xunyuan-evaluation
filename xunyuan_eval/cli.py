@@ -15,12 +15,12 @@ from .validation import validate_reference, validate_run
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="巡渊 S10 评分工具：读取运行记录，计算成绩并打包")
+    parser = argparse.ArgumentParser(description="巡渊 S10 测评：运行 ONNX 模型，计算路线、扰动和视频识别成绩")
     sub = parser.add_subparsers(dest="command", required=True)
-    demo = sub.add_parser("demo", help="生成一组样例运行记录")
+    demo = sub.add_parser("demo", help="v1：生成旧版样例记录")
     demo.add_argument("--output", type=Path, required=True, help="保存样例的目录")
-    descriptions = {"validate": "检查运行记录", "evaluate": "计算成绩并生成报告",
-                    "prepare-submission": "打包运行记录和成绩"}
+    descriptions = {"validate": "v1：检查运行记录", "evaluate": "v1：计算旧版成绩",
+                    "prepare-submission": "v1：打包旧版运行记录"}
     for name in ["validate", "evaluate", "prepare-submission"]:
         p = sub.add_parser(name, help=descriptions[name])
         p.add_argument("--run", type=Path, required=True, help="运行清单 run.json")
@@ -38,8 +38,104 @@ def main(argv=None):
     images.add_argument("--split", choices=["train", "val", "test"], required=True,
                         help="train 为训练，val 为验证，test 为测试")
     images.add_argument("--output", type=Path, required=True, help="答案文件的保存位置")
+    check = sub.add_parser("check-submission", help="检查选手提交的两个 ONNX 和报告")
+    check.add_argument("--submission", type=Path, required=True)
+    pack = sub.add_parser("package-models", help="把选手的模型和报告打成提交包")
+    pack.add_argument("--submission", type=Path, required=True)
+    pack.add_argument("--output", type=Path, required=True)
+    run_model = sub.add_parser("run-submission", help="在五张赛道和测试视频中运行选手模型")
+    run_model.add_argument("--submission", type=Path, required=True)
+    run_model.add_argument("--challenge", type=Path, default=Path("challenges/v2"))
+    run_model.add_argument("--output", type=Path, required=True)
+    run_model.add_argument("--videos", type=Path)
+    run_model.add_argument("--video-reference", type=Path)
+    run_model.add_argument("--route", help="只试跑一张地图，例如 map01")
+    run_model.add_argument("--max-seconds", type=float, help="缩短试跑时间")
+    run_model.add_argument("--seed", type=int, default=20261125, help="扰动随机种子；同一批测试使用相同的值")
+    score2 = sub.add_parser("score-challenge", help="按路线30、扰动20、识别20分计算成绩")
+    score2.add_argument("--run", type=Path, required=True)
+    score2.add_argument("--reference", type=Path, required=True)
+    score2.add_argument("--video-reference", type=Path)
+    score2.add_argument("--output", type=Path, required=True)
+    video2 = sub.add_parser("score-video", help="给一组视频识别结果算分")
+    video2.add_argument("--predictions", type=Path, required=True)
+    video2.add_argument("--reference", type=Path, required=True)
+    video2.add_argument("--output", type=Path, required=True)
+    video2.add_argument("--video", help="只查看一段视频的成绩，例如 train01")
+    reader2 = sub.add_parser("read-videos", help="用识别 ONNX 读取训练或测试视频")
+    reader2.add_argument("--model", type=Path, required=True)
+    reader2.add_argument("--videos", type=Path, required=True)
+    reader2.add_argument("--split", choices=["train", "test"], required=True)
+    reader2.add_argument("--video", help="只读取一段视频，例如 train01")
+    reader2.add_argument("--output", type=Path, required=True)
+    demo2 = sub.add_parser("demo-v2", help="生成新版评分的样例记录")
+    demo2.add_argument("--output", type=Path, required=True)
+    manual = sub.add_parser("add-report-score", help="评委填写报告分，生成100分制总成绩")
+    manual.add_argument("--report", type=Path, required=True)
+    manual.add_argument("--score", type=float, required=True)
+    manual.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
+        if args.command == "add-report-score":
+            from .challenge_v2 import add_report_score
+            if args.output.resolve()==args.report.resolve():
+                raise FormatError("请另选一个文件保存总成绩")
+            result=add_report_score(read_json(args.report),args.score)
+            write_json(args.output,result)
+            print(json.dumps({"final_score":result["final_score"],"output":str(args.output)},ensure_ascii=False))
+            return 0
+        if args.command in {"check-submission", "package-models", "run-submission"}:
+            from .onnx_runtime_v2 import check_submission, run_submission, package_models
+            if args.command == "run-submission":
+                result = run_submission(args.submission, args.challenge, args.output, args.videos,
+                                        args.video_reference, args.route, args.max_seconds, args.seed)
+                print(json.dumps({"automated_score": result["automated_score"], "report": str(args.output / "report.json")}, ensure_ascii=False))
+            elif args.command == "package-models":
+                result=package_models(args.submission,args.output)
+                print(json.dumps(result,ensure_ascii=False))
+            else:
+                _, files, _, _=check_submission(args.submission)
+                print(json.dumps({"valid":True,"files":{k:str(v) for k,v in files.items()}},ensure_ascii=False))
+            return 0
+        if args.command == "read-videos":
+            from .onnx_runtime_v2 import model_session, recognize_videos, READER_INPUTS, READER_OUTPUTS
+            if args.output.resolve().is_relative_to(args.videos.resolve()) or args.output.resolve()==args.model.resolve():
+                raise FormatError("结果文件请放在视频和模型目录以外")
+            session=model_session(args.model,READER_INPUTS,READER_OUTPUTS)
+            recognize_videos(session,args.videos,read_json(args.videos / "manifest.json"),args.output,args.split,args.video)
+            print(json.dumps({"predictions":str(args.output)},ensure_ascii=False))
+            return 0
+        if args.command == "demo-v2":
+            from .demo_v2 import create_demo as create_demo_v2
+            print(json.dumps({"run":str(create_demo_v2(args.output))}))
+            return 0
+        if args.command in {"score-challenge", "score-video"}:
+            from .challenge_v2 import evaluate as evaluate_v2, score_video
+            reference=read_json(args.reference)
+            source=read_json(args.run if args.command=="score-challenge" else args.predictions)
+            if not isinstance(source,dict) or not isinstance(reference,dict):
+                raise FormatError('输入文件需要是 JSON 对象')
+            protected=[args.reference,args.run if args.command=="score-challenge" else args.predictions]
+            if args.command=="score-challenge":
+                if args.video_reference:protected.append(args.video_reference)
+                for group in ["routes","disturbance"]:
+                    for item in source.get(group,[]):
+                        for key in ["trace","force_record"]:
+                            if key in item:protected.append(args.run.resolve().parent / item[key])
+                if source.get("video_predictions"):protected.append(args.run.resolve().parent / source["video_predictions"])
+            if any(path.resolve()==args.output.resolve() for path in protected):
+                raise FormatError("结果文件不能覆盖输入文件")
+            if args.command=="score-video":
+                if args.video:
+                    reference=dict(reference,events=[e for e in reference["events"] if e["video_id"]==args.video])
+                    source=dict(source,detections=[d for d in source["detections"] if d["video_id"]==args.video])
+                result=score_video(source,reference,include_answers=True)
+            else:
+                result=evaluate_v2(source,reference,args.run.resolve().parent,
+                                   read_json(args.video_reference) if args.video_reference else None)
+            write_json(args.output,result)
+            print(json.dumps({"score":result.get("automated_score",result.get("score")),"output":str(args.output)},ensure_ascii=False))
+            return 0
         if args.command == "demo":
             path = create_demo(args.output)
             print(json.dumps({"run": str(path), "kind": "synthetic_protocol_fixture_not_robot_simulation"}))
@@ -84,6 +180,9 @@ def main(argv=None):
         else:
             print(json.dumps(result, ensure_ascii=False, allow_nan=False))
         return 0
+    except ImportError as exc:
+        print("需要安装运行依赖：python -m pip install -e \".[runtime]\"；"+str(exc),file=sys.stderr)
+        return 2
     except (FormatError, OSError, KeyError, TypeError, ValueError) as exc:
         print(f"evaluation error: {exc}", file=sys.stderr)
         return 2

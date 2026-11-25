@@ -1,170 +1,145 @@
-# 巡渊 S10 比赛评分工具
+# 巡渊 S10 测评工具
 
-先让机器人在仿真里跑一遍，记录它的位置、姿态、速度和碰撞情况。这个工具读取记录，计算通行、导航和停靠的分数，再把记录和成绩打成提交包。
+选手提交两个 ONNX 模型和一份 PDF 报告。测评程序在五张赛道上运行导航运控模型，再用测试视频检查识别模型，最后生成成绩 JSON。
 
-当前版本：**v0.1.1**。需要 Python 3.10 或以上版本。
+当前版本：**v0.2.0**。
 
-## 1. 先用样例跑一遍
+## 1. 分数怎么算
+
+| 项目 | 分值 | 怎么测 |
+|---|---:|---|
+| 导航和运控 | 50 | 路线 30 分：五张图各走完 5 个路口并返回；扰动 20 分：每图按 0.5、1、3、5 牛依次测试 |
+| 视频识别 | 20 | 识别两段测试视频中的数字和温度 |
+| 报告 | 30 | 评委评分后填入总成绩 |
+
+每张地图的路线满分 6 分：5 个路口各 1 分，返程 1 分。按轨迹离规定路线有多远扣分；撞墙、摔倒或越界时，本次测试失败。详细扣分表见[评分规则](docs/rules.md)。
+
+## 2. 我们给选手什么
+
+- 五张 MuJoCo 赛道，包含 S10 模型、前置相机和右侧相机。
+- 每张图一份 JSON 任务，写明去程、掉头和返程怎么走。
+- 十段右侧视角视频，每段 10 分钟；8 段训练、2 段测试。
+- 模型输入输出格式、提交检查工具和本地试跑命令。
+
+| 地图 | 去程五个路口 | 任务文件 |
+|---|---|---|
+| [地图 1](challenges/v2/maps/map01.png) | 左、直、右、左、右 | [map01.json](challenges/v2/tasks/map01.json) |
+| [地图 2](challenges/v2/maps/map02.png) | 直、直、左、右、左 | [map02.json](challenges/v2/tasks/map02.json) |
+| [地图 3](challenges/v2/maps/map03.png) | 右、左、直、右、直 | [map03.json](challenges/v2/tasks/map03.json) |
+| [地图 4](challenges/v2/maps/map04.png) | 左、右、右、直、左 | [map04.json](challenges/v2/tasks/map04.json) |
+| [地图 5](challenges/v2/maps/map05.png) | 直、左、右、左、直 | [map05.json](challenges/v2/tasks/map05.json) |
+
+到终点后掉头，按任务文件中的返程指令回到起点。
+
+机器人用前置摄像头发现路口，再按顺序执行任务里的指令。例如任务写着“左、直、右”，就表示看到第一个路口左转，看到第二个路口直行，看到第三个路口右转。模型自己判断何时到达路口。
+
+## 3. 选手提交什么
+
+```text
+team_submission.zip
+  submission.json   队伍名称和文件清单
+  policy.onnx       导航和运控模型
+  reader.onnx       视频识别模型
+  report.pdf        方案报告
+```
+
+`policy.onnx` 读取前置图像和路线指令，输出腿关节和轮子的动作。`reader.onnx` 读取右侧视频画面，输出标牌位置、读数和“是否看得清”。每个 ONNX 文件内包含运行所需的权重。
+
+按[提交说明](docs/submission.md)准备好文件后，先检查，再打包：
+
+```bash
+python -m xunyuan_eval check-submission --submission my_team/submission.json
+python -m xunyuan_eval package-models \
+  --submission my_team/submission.json --output artifacts/team_submission.zip
+```
+
+## 4. 本地怎么试
+
+使用 Python 3.11，安装程序和仿真依赖：
 
 ```bash
 git clone https://github.com/LWS30/xunyuan-evaluation.git
 cd xunyuan-evaluation
-
-# 生成样例记录
-python3 -m xunyuan_eval demo --output artifacts/demo
-
-# 检查记录格式
-python3 -m xunyuan_eval validate \
-  --run artifacts/demo/run.json \
-  --reference artifacts/demo/reference.json
-
-# 计算成绩
-python3 -m xunyuan_eval evaluate \
-  --run artifacts/demo/run.json \
-  --reference artifacts/demo/reference.json \
-  --output artifacts/demo/report.json
-
-# 打包记录和成绩
-python3 -m xunyuan_eval prepare-submission \
-  --run artifacts/demo/run.json \
-  --reference artifacts/demo/reference.json \
-  --output artifacts/submission.zip
+python -m pip install -e ".[runtime]"
 ```
 
-样例记录由程序生成，用来熟悉使用方法。预期自动得分为 **70/70**，另外 **30 分由人工评审方案报告**。
-
-运行后打开 `artifacts/demo/report.json`，可以看到每项得分和通过、失败的原因。打包结果在 `artifacts/submission.zip`。
-
-## 2. 给自己的机器人算分
-
-1. 在仿真程序里加入记录器，每个物理步保存一次机器人状态，具体代码见[接入方法](docs/integration.md)。
-2. 每次测试保存一份 JSONL 文件。JSONL 就是一行一条状态记录。再用 `run.json` 列出这些文件，格式见[运行记录说明](docs/protocol.md)。
-3. 选择与赛道配套的规则文件，运行评分命令：
+先生成一组用于检查安装和接口的示例文件。这个示例让机器人原地站着：
 
 ```bash
-python3 -m xunyuan_eval evaluate \
-  --run my_run/run.json \
-  --reference references/public_dev_v3_candidate.json \
-  --stage preliminary \
-  --output artifacts/my_report.json
+python -m tools.make_v2_interface_example --output artifacts/interface_example
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission artifacts/interface_example/submission.json \
+  --route map01 --max-seconds 3 --output artifacts/first_run
 ```
 
-仓库中的规则文件对应 V3 约 50 米开发路线，包含 21 次通行测试、15 次路口选择和 12 次停靠。文件中写着出口的位置、方向和宽度，以及停靠点和时间限制。换赛道时，要一起更新这些配置和 `reference_id`。
+打开 `artifacts/first_run/report.json` 看结果。每秒的位置、姿态和碰撞状态保存在各次运行的 `states.json`，详细记录在 `physics.jsonl`。
 
-这份配置要求每 **5 毫秒**记录一次状态。相邻两条记录间隔超过 **7.5 毫秒**时，评分会停在记录中断的位置。
+换成自己的模型后，去掉 `--route` 和 `--max-seconds`，就会运行五张地图和四档扰动测试。模型具体格式见[模型接口](docs/model-interface.md)。
 
-## 3. 分数怎么算
+## 5. 视频怎么训练和检查
 
-| 项目 | 计算方法 | 满分 |
-|---|---|---:|
-| 直道与转弯 | 通过次数 ÷ 6 × 5 | 5 |
-| 上坡与下坡 | 通过次数 ÷ 6 × 5 | 5 |
-| 上楼梯 | 通过次数 ÷ 3 × 5 | 5 |
-| 下楼梯 | 通过次数 ÷ 3 × 5 | 5 |
-| 摩擦变化 | 通过次数 ÷ 3 × 5 | 5 |
-| 自主导航 | 首次选对出口的次数 ÷ 15 × 25 | 25 |
-| 到点停靠 | 合格次数 ÷ 12 × 20 | 20 |
-| 自动评分合计 | | **70** |
-
-- **通行**：整台机器人通过出口，并在规定时间内安全完成。
-- **导航**：每个路口看第一次选的出口。选错后可以折返继续走，该路口得 0 分。
-- **停靠**：停在目标附近，朝向正确，并连续保持低速 2 秒。具体数值见[评分规则](docs/rules.md)。
-
-少跑一次测试，那次按 0 分计算，总次数保持不变。
-
-初赛剩余 30 分由人工评审方案报告。决赛剩余 30 分中，25 分评审巡检记录，5 分评审部署与复现。报告里的 `pending_manual` 列出待人工评审的项目。
-
-## 4. 结果在哪里
-
-| 文件 | 内容 |
-|---|---|
-| `report.json` | 总分、分项成绩、每项通过或失败的原因、规则版本和文件校验值 |
-| `submission.zip` | 运行清单、规则文件、运行记录、重算的成绩和文件清单 |
-
-提交包会收集 `run.json` 引用的运行记录，并重新计算成绩。按赛事提供的提交方式交付这个包；算法镜像和方案报告也按赛事要求提交。
-
-## 5. 数字和温度图片怎么用
-
-| 数据 | 内容 | 下载位置 |
-|---|---|---|
-| [数字牌和温度屏](datasets/readings_v3/) | 6 张数字牌、6 张温度屏，附正确答案 | 仓库内 |
-| [温度图片数据集](datasets/temperature_v3/) | 15,000 条样本，每条有完整面板和数字裁剪图，共 30,000 张图片 | [Release 下载页](https://github.com/LWS30/xunyuan-evaluation/releases/tag/v0.1.1) |
-
-图片由程序绘制，包含清晰、遮挡、模糊、遮挡加模糊和完全看不清五种情况。温度数据按训练、验证、测试分成 12,000、1,500、1,500 条，仓库还带了 30 条图片样例。
-
-OCR 就是把图片上的字符读成文字。先用自己的 OCR 程序识别图片，保存结果，再让工具和正确答案比较。完整步骤见[图片使用说明](docs/datasets.md)。
-
-先给仓库自带的温度图片样例生成答案文件：
+[下载视频](docs/datasets.md)后，用自己的识别模型读取一段训练视频：
 
 ```bash
-python3 -m xunyuan_eval reading-reference \
-  --dataset datasets/temperature_v3/sample --split test \
-  --output artifacts/temperature_sample_reference.json
+python -m xunyuan_eval read-videos \
+  --model my_team/reader.onnx --videos datasets/video_v2 \
+  --split train --video train01 --output artifacts/train01_predictions.json
+python -m xunyuan_eval score-video \
+  --predictions artifacts/train01_predictions.json \
+  --reference datasets/video_v2/train/reference.json --video train01 \
+  --output artifacts/train01_score.json
 ```
 
-也可以先用下面的现成答案和预测结果，熟悉比较命令：
+查看错了哪些标牌，修改模型后再试。每段视频有 6 个数字牌、6 个温度屏，字比较小，包含模糊、遮挡和完全看不清的情况。
+
+## 6. 我们怎么给选手测评
+
+解压选手的提交包后，运行：
 
 ```bash
-python3 -m xunyuan_eval readings \
-  --predictions examples/reading_predictions.json \
-  --reference examples/reading_reference.json \
-  --output artifacts/reading_report.json
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission team/submission.json --output results/team01 \
+  --videos datasets/video_v2 \
+  --video-reference organizer/video_test_reference.json --seed 20261125
 ```
 
-数字按文字逐字比较，例如 `00127` 和 `127` 算不同结果。温度按数值和单位比较，默认允许 0.1 ℃ 误差。图片看不清时，结果中写明原因。这项结果单独显示识别正确数。
+程序负责运行模型、记录轨迹、检查碰撞、施加扰动和计算成绩。同一批选手使用同一组地图、参数和随机种子。测试视频的答案文件由组织方保存。
 
-## 6. S10 模型和基础程序
+评委给报告打分后，例如 27 分：
 
-云深处官方提供机器人模型、训练代码和部署方法：
+```bash
+python -m xunyuan_eval add-report-score \
+  --report results/team01/report.json --score 27 \
+  --output results/team01/final_report.json
+```
 
-- [S10 SDK 与部署说明](https://github.com/DeepRoboticsLab/sdk_deploy/blob/main/src/S10_sdk_deploy/README.md)
-- [S10 强化学习训练代码](https://github.com/DeepRoboticsLab/rl_training)
-- [S10 机器人模型](https://github.com/DeepRoboticsLab/deep_robotics_model)
+自动分加上报告分，就是 100 分制总成绩。更多运行细节见[测评程序说明](docs/integration.md)。
 
-## 7. 文件、依赖和测试
+## 7. 文件和检查命令
 
 ```text
-xunyuan_eval/       记录、检查、评分和打包程序
-references/         赛道规则和评分配置
-examples/           使用样例
-datasets/          数字和温度图片、答案、下载信息
-docs/              接入方法、文件格式和评分规则
+challenges/v2/      五张赛道、S10模型、转弯任务和评分参数
+xunyuan_eval/      模型运行、记录和评分程序
+datasets/video_v2/ 视频清单、训练答案和下载说明
+tools/             生成地图、视频和示例模型的工具
 tests/             自动测试
+docs/              提交、模型接口、评分和数据说明
 ```
-
-### 需要安装什么
-
-| 要做什么 | 需要什么 |
-|---|---|
-| 读取已有记录、算分、打包 | Python 3.10 或以上版本 |
-| 从 MuJoCo 中记录机器人状态 | MuJoCo、NumPy，以及正在运行的仿真程序 |
-| 识别数字和温度图片 | 图片和自己的 OCR 程序 |
-
-### 评分器怎么知道机器人摔倒了
-
-```text
-机器人在仿真里运动 → 记录位置、姿态和碰撞 → 保存文件 → 评分器读文件算分
-```
-
-在 MuJoCo 仿真循环中调用 `MuJoCoSampler`，它从模拟器读取机器人状态，再交给 `TraceRecorder` 写进文件。其他仿真器按[运行记录格式](docs/protocol.md)保存同样的字段。
-
-评分器逐条检查记录。当前规则中，机器人向左右或前后倾斜超过 **45°** 就算摔倒，还会检查碰撞、越界、动作是否合规、人工接管和超时。
-
-独立通行测试发生安全问题时，那次不通过。连续任务发生问题时，保留此前已完成的成绩，后续项目计 0 分。记录缺字段或文件缺失时，程序会指出具体错误。
-
-### 怎么检查程序能否正常工作
 
 ```bash
-# 检查记录格式、评分、图片答案导出和打包功能
-python3 -m unittest discover -s tests -v
-
-# 检查 MuJoCo 的状态读取，需要安装 MuJoCo 和 NumPy
-python3 -m unittest discover -s tests -p test_mujoco_adapter.py -v
-
-# 用一个方块在重力下倾倒，检查姿态记录和摔倒判定
-python3 -m examples.mujoco_fall_check --output artifacts/mujoco_fall_check
+python -m unittest discover -s tests -v
+python -m tools.check_v2_physics --output artifacts/physics_check.json
 ```
 
-未安装 MuJoCo 时，相关测试显示 `skipped`，表示跳过。倾倒示例会保存两份运行记录和一个 `result.json`，可以查看直立和倾倒两种情况的结果。
+想先看打分文件的格式，可以生成一组理想轨迹和识别结果：
 
-想在每次推送代码时自动测试，可以把 `docs/ci-workflow.example.yml` 复制到 `.github/workflows/test.yml`。模板会用 Python 3.10、3.11、3.12、3.13 分别运行检查。
+```bash
+python -m xunyuan_eval demo-v2 --output artifacts/scoring_example
+python -m xunyuan_eval score-challenge \
+  --run artifacts/scoring_example/run.json \
+  --reference artifacts/scoring_example/reference.json \
+  --video-reference artifacts/scoring_example/video_reference.json \
+  --output artifacts/scoring_example/report.json
+```
+
+这组生成记录的预期得分是路线 30、扰动 20、识别 20，报告分等待评委填写。

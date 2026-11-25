@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "kind": "digits",
+      "value": "00127"
+    },
+    {
+      "kind": "digits",
+      "value": "-08.3"
+    },
+    {
+      "kind": "digits",
+      "value": "083"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "31.4"
+    },
+    {
+      "kind": "digits",
+      "value": "0042"
+    },
+    {
+      "kind": "digits",
+      "value": "19.07"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "20.6"
+    },
+    {
+      "kind": "digits",
+      "value": "-12"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "53.1"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "27.8"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "44.0"
+    },
+    {
+      "kind": "temperature_display",
+      "value": "45.2"
+    }
+  ]
+}

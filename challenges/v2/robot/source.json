@@ -1,0 +1,26 @@
+{
+  "source_repository": "https://github.com/DeepRoboticsLab/sdk_deploy",
+  "source_path": "src/S10_sdk_deploy/S10_description/s10_mjcf/mjcf/S10.xml",
+  "source_xml_sha256": "7855e80eb93e55f6bff63dbce195210ee0febf80de6cdfa40baaff6f55f43804",
+  "license": "BSD-3-Clause",
+  "prepared_xml_sha256": "10743efeac827c5d32c298a2c9a74105a17f0c819af967b31405d22996cf25aa",
+  "mesh_sha256": {
+    "base_link.STL": "394585c0badd48741c72fc57874d0485e123c7ecc76cf9cebe8a0685c0eaf9af",
+    "fl_hipx.STL": "72d06cc250037d44013640698a7a54874e4884dd2f5c057323ce55a85fdb78a4",
+    "fl_hipy.STL": "03f98411f2d7ce43b270912f44466421bbeaf30173663c15bdd219b674a4855c",
+    "fl_knee.STL": "47d0405e3eb4791d7caf342f03bc957cc1051ee7d249631f81c9ecb09bf7a0db",
+    "fl_wheel.STL": "ebef6a0bd850f0b7883d46f24233c7e0dacd403caf5f1b8dc18d742d0bfaf2f9",
+    "fr_hipx.STL": "ad314bb25f6d33e15b963b5c7dc6a84052dba48e865f634d09dc061051338f73",
+    "fr_hipy.STL": "aa844e64649fe0e0d84303f804dfa6a81c755e27c243379b36e2cf78d887815c",
+    "fr_knee.STL": "eeb40a8b020990d696d2a3a382e7895cffd23bc862ae23c3ef558f4f00444bc1",
+    "fr_wheel.STL": "3ba672f805fb63cfbda409959325d5a17e16985622d5c4dc97cafb64bf3a2784",
+    "hl_hipx.STL": "e4e0b5e2dbaaab069a9b3b12e18ad56aa2f03ecb1c9167d9360d16e86fa1f52f",
+    "hl_hipy.STL": "d6649a94ca73d931ede00ecf3f741f1f7685e794e811152af1ab5744053b0ae5",
+    "hl_knee.STL": "0d393cc959dac947c9e7147aa9150f49a614991f7ba66b7aca679662f29b74fd",
+    "hl_wheel.STL": "e57e1e80dd230a2da4f49e439e59c06adf9f23f37e20130e7ec5eb150ba27adc",
+    "hr_hipx.STL": "0258c98230264d511011dc97e625b625493797f05f6ae4b8e48f7f5aa0d78a12",
+    "hr_hipy.STL": "312c0795118f105279e509baa36e4025d34e263ea2cfd22100e0f5141e63eb50",
+    "hr_knee.STL": "a27c78d383457f6cda39eca3b19949a89504bc85a42a1bc750faa150ba03f634",
+    "hr_wheel.STL": "9e74e87e07e1c4717f8185d5669fbaacba0a0079c299d45a9a5d5494e0b3b212"
+  }
+}

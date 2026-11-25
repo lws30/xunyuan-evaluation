@@ -1,103 +1,114 @@
-# 把仿真结果交给评分器
+# 测评程序怎么运行
 
-整个过程分三步：**运行机器人、保存状态、读取文件算分**。
+选手准备模型，我们用统一的地图、S10 模型和视频运行它们。
 
-## 1. 在哪里加记录代码
+## 1. 准备环境
 
-把记录器加在仿真程序每次推进物理计算的位置。每推进一步，就记一次位置、姿态、速度和碰撞情况。
+在仓库根目录安装：
+
+```bash
+python -m pip install -e ".[runtime]"
+```
+
+本次使用 Python 3.11、MuJoCo 3.13.0、ONNX Runtime 1.30.0 运行检查。
+
+赛道和机器人在 `challenges/v2/`，转弯任务在 `challenges/v2/tasks/`，视频按[下载说明](datasets.md)放进 `datasets/video_v2/`。
+
+## 2. 解压选手文件
+
+```bash
+python -m zipfile -e team_submission.zip team
+python -m xunyuan_eval check-submission --submission team/submission.json
+```
+
+选手包里包含 `policy.onnx`、`reader.onnx`、`report.pdf`、`submission.json`。
+
+## 3. 运行导航和运控
+
+程序从每张图的起点出发，先测一次路线，再从低到高测扰动。
 
 ```text
-模拟器 → 相机、雷达等观测 → 算法决定动作 → 模拟器执行动作
-   └→ 位置、姿态、速度、碰撞 → 记录文件 → 评分器
+前置画面、转弯指令和传感器状态
+    ↓
+选手的 policy.onnx
+    ↓
+腿关节和轮子动作
+    ↓
+MuJoCo 推进一步，记录位置、姿态、接触和外力
+    ↓
+评分器比较轨迹、检查失败情况、计算得分
 ```
 
-算法用传感器观测决定怎么走。评分器用模拟器记录的状态判断走得怎么样。比赛运行时，由评测程序负责保存这些状态。
+程序在初始化阶段让机器人进入统一姿态，再从时间 0 开始测试。模型的记忆和上一次动作也在每次测试开始时清零。
 
-每次测试从时间 0 开始记录，单独保存一个 JSONL 文件。JSONL 就是一行一条状态记录。所有字段见[运行记录格式](protocol.md)。测试结束、超时或程序出错后，都保存已经写下的内容，并在 `run.json` 中填写结束原因。
+每个物理步都检查碰撞和姿态，同时每秒保存一次状态摘要。路线结束、碰撞、摔倒、越界或超时都会结束这次运行。
 
-## 2. MuJoCo 怎么接
+## 4. 运行视频识别
 
-仓库里有两个现成工具：
-
-- `MuJoCoSampler`：从 MuJoCo 里取出这一时刻的机器人状态。
-- `TraceRecorder`：把取出的状态逐行写进文件。
-
-接入前，先确认四件事：
-
-| 配置 | 填什么 |
-|---|---|
-| `root_body` | 机器人主体的名称，例如 `base_link` |
-| `terrain_geom_names` | 地面、坡道、台阶等允许行驶表面的名称 |
-| `allowed_terrain_body_names` | 允许碰到地面的机器人部位名称，例如轮子 |
-| `boundary_check` | 检查机器人是否越界的函数；越界返回 `True` |
-
-下面的片段放进现有仿真循环。`model`、`data`、算法动作和场景检查函数由你的仿真程序提供。
-
-```python
-import mujoco
-from xunyuan_eval.mujoco_recorder import MuJoCoSampler
-from xunyuan_eval.recorder import TraceRecorder
-
-sampler = MuJoCoSampler(
-    model,
-    root_body="base_link",
-    terrain_geom_names=scene_terrain_names,
-    allowed_terrain_body_names=allowed_contact_bodies,
-    boundary_check=scene_boundary_checker,
-)
-
-mujoco.mj_forward(model, data)
-with TraceRecorder("my_run/traces/R1.jsonl") as recorder:
-    recorder.append(sampler.sample(data, action_valid=True))
-    while running:
-        # 取出算法动作，按控制接口的要求检查动作
-        raw_action = get_policy_action()
-        legal = action_validator(raw_action)
-        apply_action(raw_action)
-
-        # 推进一步，更新姿态和碰撞，再保存这一时刻的状态
-        mujoco.mj_step(model, data)
-        mujoco.mj_forward(model, data)
-        recorder.append(sampler.sample(data, action_valid=legal))
-```
-
-如果算法每隔几个物理步才更新一次动作，记录器仍然要在每个物理步调用。V3 配置的记录间隔是 0.005 秒。
-
-采样器会读取机器人所有碰撞部件的包围盒，用这些盒子的角点判断整台机器人是否通过出口、是否越界。它也会读取当前的接触：允许的部位碰到允许的地形算正常接触，其余涉及机器人的接触会记入 `forbidden_contacts`。
-
-## 3. 怎么判断摔倒
-
-记录中的 `roll_rad` 表示左右倾斜，`pitch_rad` 表示前后倾斜，单位是弧度。
-
-当前规则中，任意一项的绝对值超过 45°，就触发摔倒判定，原因记为 `fall`。碰撞、越界等问题也会触发失败，报告会列出评分时先遇到的原因。
-
-可以先跑一个现成例子，看看记录和结果长什么样：
+识别模型逐帧读取测试视频，输出标牌位置和文字。评分器再和组织方保存的答案比较。
 
 ```bash
-python3 -m examples.mujoco_fall_check --output artifacts/mujoco_fall_check
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission team/submission.json --output results/team01 \
+  --videos datasets/video_v2 \
+  --video-reference organizer/video_test_reference.json --seed 20261125
 ```
 
-这个例子使用一个能绕轴转动的方块。直立时它保持不动，略微倾斜时会在重力下倒下。程序会保存 `upright.jsonl`、`tipping.jsonl` 和 `result.json`。倾倒记录经过评分函数检查后，结果中的原因应为 `fall`。
+每批选手使用相同种子，便于比较扰动测试结果。种子写进运行清单。
 
-## 4. 其他仿真器怎么接
+视频识别出现模型错误时，这部分记 0 分，并在报告中写明原因；已经完成的路线和扰动成绩保留。
 
-在 Isaac Sim、ROS 或自己的模拟器中，按[运行记录格式](protocol.md)整理相同的字段，再用 `TraceRecorder` 保存。位置、姿态、速度和接触从对应的模拟器接口取得；越界和动作检查按场景与控制接口实现。
+## 5. 看输出
 
-## 5. 配好规则，开始算分
+```text
+results/team01/
+  run.json                 运行清单和模型校验值
+  report.json              路线、扰动、识别成绩
+  video_predictions.json   模型读出的视频结果
+  map01/
+    normal/
+      states.json          每秒摘要和结束原因
+      physics.jsonl        每个物理步的详细状态
+      forces.json          施力记录
+      result.json          本次运行结果
+    force_0.5/
+    ...
+```
 
-规则文件中的出口和停靠点要与当前赛道一致。仓库附带的 `references/public_dev_v3_candidate.json` 对应 V3 约 50 米开发路线：
+`map02` 至 `map05` 的结构相同。每个档位单独初始化、单独记录；失败后停止该图更高档的扰动测试。
 
-- 21 次独立通行测试，每类场景跑 3 次。
-- 连续任务共跑 3 轮，每轮有 5 次路口选择和 4 次停靠。
-- A 点去程和返程分别计一次停靠。
+只检查安装时，可以加 `--route map01 --max-seconds 3` 缩短试跑。
 
-运行结束后，把记录文件列入 `run.json`，再执行：
+## 6. 填入报告分
 
 ```bash
-python3 -m xunyuan_eval evaluate \
-  --run my_run/run.json \
-  --reference references/public_dev_v3_candidate.json \
-  --output artifacts/my_report.json
+python -m xunyuan_eval add-report-score \
+  --report results/team01/report.json --score 27 \
+  --output results/team01/final_report.json
 ```
 
-打开 `artifacts/my_report.json`，查看各项得分和原因。
+生成的 `final_report.json` 中，`final_score` 是自动分与报告分之和，满分 100。
+
+## 7. 重新生成地图和视频
+
+```bash
+python -m tools.build_challenge_v2 --output artifacts/new_maps
+MUJOCO_GL=egl python -m tools.build_video_v2 \
+  --output artifacts/new_videos --private organizer/new_video_answers
+```
+
+地图生成工具使用仓库自带的机器人资源。视频生成工具把小标牌放在走廊右墙，再移动相机采集画面；训练答案随训练视频保存，测试答案保存在指定的组织方目录。
+
+## 8. 换一组路段长度测试
+
+公开五图用于练习。也可以把直道路段长度随机设为 5 至 8 米，并保留原来的转弯顺序。模型通过前置画面发现路口，再执行该路口对应的指令。
+
+```bash
+python -m tools.build_challenge_v2 --output organizer/round01 --seed 42317
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission team/submission.json --challenge organizer/round01 \
+  --output results/team01_round01 --videos datasets/video_v2 \
+  --video-reference organizer/video_test_reference.json --seed 20261125
+```
+
+同一批选手使用同一份生成地图。地图里的参考路线和评分配置会一起更新。

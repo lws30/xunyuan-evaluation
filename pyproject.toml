@@ -4,11 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "xunyuan-evaluation"
-version = "0.1.1"
+version = "0.2.0"
 description = "Public, offline self-evaluation tools for the Xunyuan S10 inspection challenge"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 dependencies = []
+
+[project.optional-dependencies]
+runtime = ["mujoco>=3.3", "onnx>=1.17", "onnxruntime>=1.20", "numpy>=1.26", "opencv-python-headless>=4.10", "Pillow>=10"]
 
 [project.scripts]
 xunyuan-eval = "xunyuan_eval.cli:main"

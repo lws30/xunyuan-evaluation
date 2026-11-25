@@ -1,93 +1,72 @@
-# 数字和温度图片怎么用
+# 右侧视频怎么用
 
-先用 OCR 程序读图片，再把读出的文字和答案比较。OCR 就是图片文字识别。
+共十段视频，每段 10 分钟，分辨率 640×360，每秒 5 帧。标牌贴在走廊右墙上，相机沿走廊移动采集画面。
 
-## 1. 先看仓库里的样例
+- **8 段训练视频**：每段配正确答案、出现时间和标牌位置。可以反复训练、查看错误、修改模型。
+- **2 段测试视频**：用于最后评分，答案由组织方保存。
 
-| 目录 | 里面有什么 |
-|---|---|
-| `datasets/readings_v3/` | 6 张数字牌、6 张温度屏和正确答案 |
-| `datasets/temperature_v3/sample/` | 30 条温度样例，每条有完整面板和数字裁剪图，共 60 张图片 |
-| `datasets/temperature_v3/` | 完整数据的标注、训练分组和预览图 |
+每段含 6 个数字牌和 6 个温度屏。标牌的位置、大小和相机角度随视频变化，包含清晰、模糊、运动模糊、部分遮挡和完全看不清五种情况。
 
-这些图片由程序绘制。温度范围是 −20.0 至 120.0 ℃，有清晰、遮挡、模糊、遮挡加模糊、完全看不清五种情况。
+## 1. 下载
 
-## 2. 下载完整温度图片
-
-完整数据有 15,000 条样本、30,000 张图片，解压后约 1.2 GB。在仓库根目录执行：
+在[v0.2.0 下载页](https://github.com/LWS30/xunyuan-evaluation/releases/tag/v0.2.0)下载训练包、测试包和校验文件：
 
 ```bash
-mkdir -p artifacts/datasets
-curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.1.1/xunyuan-temperature-v3.zip \
-  -o artifacts/datasets/xunyuan-temperature-v3.zip
-curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.1.1/SHA256SUMS \
-  -o artifacts/datasets/SHA256SUMS
-
-# 检查下载文件是否完整
-(cd artifacts/datasets && sha256sum -c SHA256SUMS)
-
-# 解压到数据目录
-python3 -m zipfile -e artifacts/datasets/xunyuan-temperature-v3.zip datasets/temperature_v3
+mkdir -p artifacts/downloads
+curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.2.0/xunyuan-v2-training-videos.zip \
+  -o artifacts/downloads/xunyuan-v2-training-videos.zip
+curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.2.0/xunyuan-v2-test-videos.zip \
+  -o artifacts/downloads/xunyuan-v2-test-videos.zip
+curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.2.0/SHA256SUMS \
+  -o artifacts/downloads/SHA256SUMS
+(cd artifacts/downloads && sha256sum -c SHA256SUMS)
+python -m zipfile -e artifacts/downloads/xunyuan-v2-training-videos.zip datasets/video_v2
+python -m zipfile -e artifacts/downloads/xunyuan-v2-test-videos.zip datasets/video_v2
 ```
 
-解压后的 `train/`、`val/`、`test/` 都有 `panels/` 和 `crops/`。前者是完整面板，后者是数字区域的裁剪图。对应的 JSONL 标注一行写一条样本，图片路径以 `datasets/temperature_v3/` 为起点。
+解压后：
 
-训练、验证、测试各有 12,000、1,500、1,500 条样本。同一个温度值的所有图片都放在同一组，使用时沿用这三组划分即可。
+```text
+video_v2/
+  manifest.json
+  train/
+    train01.mp4 ... train08.mp4
+    reference.json
+  test/
+    test01.mp4
+    test02.mp4
+```
 
-## 3. 标注里写了什么
-
-| 字段 | 含义 |
-|---|---|
-| `id` / `split` | 样本编号，以及它属于训练、验证还是测试 |
-| `image_path` / `crop_path` | 完整面板和数字裁剪图的位置 |
-| `condition` | `normal` 清晰、`occlusion` 遮挡、`blur` 模糊、`mixed` 混合、`unreadable` 看不清 |
-| `readable` | 图片上的字是否可读 |
-| `status` | 可读时为 `ok`，看不清时为 `abstain` |
-| `value` / `text` / `unit` | 数值文字、带单位的文字，以及单位 `C` |
-| `display_roi_xyxy` | 数字区域在面板图中的位置 |
-| `occluded_ink_fraction` / `gaussian_sigma` | 生成图片时使用的遮挡比例和模糊强度 |
-| `source_value` / `source_group` | 生成时的原始温度和分组信息，用来检查数据划分 |
-
-看不清的图片，`value` 和 `text` 是 `null`。识别时把图片交给 OCR 程序，再用答案检查结果。
-
-## 4. 生成答案文件
-
-先用仓库带的图片样例试一遍：
+## 2. 训练后检查一段视频
 
 ```bash
-python3 -m xunyuan_eval reading-reference \
-  --dataset datasets/temperature_v3/sample --split test \
-  --output artifacts/temperature_sample_reference.json
+python -m xunyuan_eval read-videos \
+  --model my_team/reader.onnx --videos datasets/video_v2 \
+  --split train --video train01 --output artifacts/train01_predictions.json
+python -m xunyuan_eval score-video \
+  --predictions artifacts/train01_predictions.json \
+  --reference datasets/video_v2/train/reference.json --video train01 \
+  --output artifacts/train01_score.json
 ```
 
-下载完整图片后，把 `--dataset` 改成 `datasets/temperature_v3`，就会生成 1,500 条测试样本的答案。程序也会检查标注、图片文件和文件校验值。
+打开 `train01_score.json`，查看正确答案、模型读出的文字，以及对了几张、哪些标牌出错。修改模型后，再运行这两步。去掉 `--video train01`，可以读取和检查全部训练视频。
 
-## 5. 保存 OCR 识别结果
+## 3. 答案里有什么
 
-让自己的 OCR 程序读取图片，按下面的格式保存为 `my_predictions.json`，把 `value` 填成程序实际读出的文字：
+每个标牌记录视频编号、出现的起止时间、每帧位置、数字或温度，以及是否看得清。看不清的标牌，答案中的读数为 `null`，识别结果填写看不清的原因。
 
-```json
-{
-  "results": [
-    {"id": "test_000000", "target_id": "test_000000", "status": "ok", "value": "58.1", "unit": "C"},
-    {"id": "test_000007", "target_id": "test_000007", "status": "abstain", "reason": "display_occluded"}
-  ]
-}
-```
+评分时按画面时间和标牌位置找到对应答案，再比较读数。每个标牌只计一次，使用可信度最高的一次输出。
 
-温度样本的 `id` 和 `target_id` 都使用样本编号。数字牌样例则使用 `datasets/readings_v3/reference.json` 中对应的编号。
+## 4. 自己贴标牌、生成视频
 
-读出文字时写 `status: "ok"`。温度单位填 `C`，普通数字单位填 `null`。图片看不清时写 `status: "abstain"`，并在 `reason` 中写原因。
-
-## 6. 比较结果
+把 12 个数值写进 `content.json`，格式见[内容样例](../datasets/video_v2/content.example.json)，再生成：
 
 ```bash
-python3 -m xunyuan_eval readings \
-  --predictions my_predictions.json \
-  --reference artifacts/temperature_sample_reference.json \
-  --output artifacts/temperature_reading_report.json
+MUJOCO_GL=egl python -m tools.build_video_v2 \
+  --output artifacts/my_videos --private organizer/my_video_answers \
+  --content content.json
 ```
 
-结果里会写对了几张、总共几张，以及每张的判断原因。少识别的图片也算在总数里。
+自定义内容用于训练视频，测试视频另外随机生成。选择新的输出目录即可保留每次生成的数据。
 
-普通数字逐字比较，保留前面的零、负号和小数点。温度默认允许 0.1 ℃ 误差，同时检查单位。看不清的图片，检查是否填写了原因。
+原有的数字和温度静态图片仍可用于训练，见[图片数据说明](image-datasets.md)。

@@ -11,3 +11,5 @@ artifacts/
 *.mp4
 *.tar
 .env
+
+/organizer/

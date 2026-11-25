@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "archives": [
+    {
+      "split": "train",
+      "filename": "xunyuan-v2-training-videos.zip",
+      "bytes": 6326968,
+      "sha256": "2baf20e9977bed5e1aa31c912c978282157d68050e83c9b92bead4b483f06b00",
+      "url": "https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.2.0/xunyuan-v2-training-videos.zip"
+    },
+    {
+      "split": "test",
+      "filename": "xunyuan-v2-test-videos.zip",
+      "bytes": 1001027,
+      "sha256": "261b53c9c90b2a0b125bb30044b2aeee6cff6c8398e0be2407f181b081f0d3df",
+      "url": "https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.2.0/xunyuan-v2-test-videos.zip"
+    }
+  ]
+}

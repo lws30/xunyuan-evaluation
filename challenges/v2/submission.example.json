@@ -1,0 +1,7 @@
+{
+  "schema_version": "2.0",
+  "team": "your-team",
+  "policy": "policy.onnx",
+  "reader": "reader.onnx",
+  "report": "report.pdf"
+}

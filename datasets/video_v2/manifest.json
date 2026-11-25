@@ -1,0 +1,101 @@
+{
+  "schema_version": "2.0",
+  "source": "mujoco_right_camera_rendering",
+  "training_videos": 8,
+  "test_videos": 2,
+  "seconds_per_video": 600,
+  "signs_per_video": 12,
+  "video_reading_maximum": 20,
+  "videos": [
+    {
+      "id": "train01",
+      "file": "train01.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "3c379b0a0cc74b25d33cbc1eb512ae0ea2ec0579647da17daee0a065403adda4"
+    },
+    {
+      "id": "train02",
+      "file": "train02.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "382aacbb0e733db77a35d632f0fec1498603c0df33e91deb48a931820edc4672"
+    },
+    {
+      "id": "train03",
+      "file": "train03.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "9e7f05cb00ec219e2abc37a772cb5322a0412376b2bb12a789772d7acc2635f5"
+    },
+    {
+      "id": "train04",
+      "file": "train04.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "ee7d829ac10240f76a52b2dd3f0c87e9b5c88fa46669182624b1820a3ace536c"
+    },
+    {
+      "id": "train05",
+      "file": "train05.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "6992868acd47048705de8af83ef0484fe485f2773d09dab270e3629cd17500d4"
+    },
+    {
+      "id": "train06",
+      "file": "train06.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "2bad25eb3f45b6aba390a732bd7d9f5317858e19f4dac65b582816efe095c431"
+    },
+    {
+      "id": "train07",
+      "file": "train07.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "ca657c90eeb92e1b8c83d33accbb0216e637df8bb065b3575e1f4221b52d35e3"
+    },
+    {
+      "id": "train08",
+      "file": "train08.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "921f6137ccf7ba76612082aca3b125e0ac16e248daaa9fd320053f9d6ec51809"
+    },
+    {
+      "id": "test01",
+      "file": "test01.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "158c2d72ab6efbc095d2695f8f958409de9231b2d2761e615f621e3841ded781"
+    },
+    {
+      "id": "test02",
+      "file": "test02.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "b8e093f151e9e5799835cc7c1062a94d93345e63921f3b7770e0c8fcc62e6afb"
+    }
+  ]
+}
