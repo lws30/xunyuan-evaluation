@@ -1,8 +1,4 @@
-"""Optional MuJoCo telemetry adapter, called only by the evaluator process.
-
-Install MuJoCo separately; importing the core scoring package does not need it.
-Boundary and action validation belong to the scene/SDK adapter, not the agent.
-"""
+"""Read robot states from MuJoCo for recording and scoring."""
 
 import itertools
 import math

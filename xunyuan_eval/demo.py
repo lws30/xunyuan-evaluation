@@ -1,4 +1,4 @@
-"""Synthetic protocol fixtures: never simulation or robot capability evidence."""
+"""Generate sample state records for trying the evaluation commands."""
 
 import copy
 import hashlib

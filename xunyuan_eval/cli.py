@@ -15,25 +15,29 @@ from .validation import validate_reference, validate_run
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="巡渊公开开发自评工具（规则候选版，非正式裁判成绩）")
+    parser = argparse.ArgumentParser(description="巡渊 S10 评分工具：读取运行记录，计算成绩并打包")
     sub = parser.add_subparsers(dest="command", required=True)
-    demo = sub.add_parser("demo", help="生成合成协议样例，不运行机器人仿真")
-    demo.add_argument("--output", type=Path, required=True)
+    demo = sub.add_parser("demo", help="生成一组样例运行记录")
+    demo.add_argument("--output", type=Path, required=True, help="保存样例的目录")
+    descriptions = {"validate": "检查运行记录", "evaluate": "计算成绩并生成报告",
+                    "prepare-submission": "打包运行记录和成绩"}
     for name in ["validate", "evaluate", "prepare-submission"]:
-        p = sub.add_parser(name)
-        p.add_argument("--run", type=Path, required=True)
-        p.add_argument("--reference", type=Path, required=True)
+        p = sub.add_parser(name, help=descriptions[name])
+        p.add_argument("--run", type=Path, required=True, help="运行清单 run.json")
+        p.add_argument("--reference", type=Path, required=True, help="本次赛道的规则文件")
         if name != "validate":
-            p.add_argument("--output", type=Path, required=True)
-            p.add_argument("--stage", choices=["preliminary", "final"], default="preliminary")
-    readings = sub.add_parser("readings", help="离线读数诊断，不计入赛事总分")
-    readings.add_argument("--predictions", type=Path, required=True)
-    readings.add_argument("--reference", type=Path, required=True)
-    readings.add_argument("--output", type=Path, required=True)
-    images = sub.add_parser("reading-reference", help="从温度图片数据集导出读数诊断参考")
-    images.add_argument("--dataset", type=Path, required=True)
-    images.add_argument("--split", choices=["train", "val", "test"], required=True)
-    images.add_argument("--output", type=Path, required=True)
+            p.add_argument("--output", type=Path, required=True, help="结果文件的保存位置")
+            p.add_argument("--stage", choices=["preliminary", "final"], default="preliminary",
+                           help="preliminary 为初赛，final 为决赛")
+    readings = sub.add_parser("readings", help="比较图片识别结果和正确答案")
+    readings.add_argument("--predictions", type=Path, required=True, help="OCR 识别结果文件")
+    readings.add_argument("--reference", type=Path, required=True, help="正确答案文件")
+    readings.add_argument("--output", type=Path, required=True, help="比较结果的保存位置")
+    images = sub.add_parser("reading-reference", help="根据温度图片标注生成答案文件")
+    images.add_argument("--dataset", type=Path, required=True, help="图片和标注所在目录")
+    images.add_argument("--split", choices=["train", "val", "test"], required=True,
+                        help="train 为训练，val 为验证，test 为测试")
+    images.add_argument("--output", type=Path, required=True, help="答案文件的保存位置")
     args = parser.parse_args(argv)
     try:
         if args.command == "demo":
@@ -61,7 +65,7 @@ def main(argv=None):
             if args.command == "validate":
                 validate_run(run, ref, args.run.resolve().parent)
                 result = {"valid": True, "reference_id": ref["reference_id"],
-                          "note": "Missing expected trials/events remain in the scoring denominator."}
+                          "note": "未完成的测试按 0 分计算，总次数保持不变。"}
             else:
                 if args.output.resolve() in {args.run.resolve(), args.reference.resolve()}:
                     raise FormatError("Output cannot overwrite input files")

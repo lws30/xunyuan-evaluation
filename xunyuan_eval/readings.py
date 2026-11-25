@@ -1,4 +1,4 @@
-"""Optional public OCR diagnostics; never add points to the 100-point table."""
+"""Compare number and temperature predictions with their reference answers."""
 
 from decimal import Decimal, InvalidOperation
 

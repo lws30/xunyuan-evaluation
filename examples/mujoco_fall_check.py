@@ -1,6 +1,5 @@
-"""Exercise gravity-driven tipping, recording, and the evaluator's fall rule.
+"""Record a hinged body's gravity-driven tipping and check the fall result.
 
-This fixture is a hinged rigid body, not an S10 model or locomotion benchmark.
 Run from the repository: python -m examples.mujoco_fall_check --output artifacts/fall
 """
 
@@ -75,7 +74,7 @@ def run_check(output):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, required=True)
+    parser = argparse.ArgumentParser(description="让方块在重力下倾倒，检查姿态记录和摔倒判定")
+    parser.add_argument("--output", type=Path, required=True, help="保存两份运行记录和检查结果的目录")
     args = parser.parse_args()
     print(run_check(args.output))

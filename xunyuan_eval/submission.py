@@ -1,4 +1,4 @@
-"""Prepare a small, deterministic submission index without copying private data."""
+"""Build a reproducible submission archive from run records."""
 
 import json
 import zipfile
@@ -8,7 +8,7 @@ from .io import FormatError, contained, digest, read_json, text
 
 
 def prepare_submission(run_path, reference_path, output, stage="preliminary"):
-    # Always recompute; an edited report.json cannot provide the submission score.
+    # Compute the report from the input records before packing the archive.
     from .evaluator import evaluate
     run_path, reference_path, output = map(Path, (run_path, reference_path, output))
     if output.exists():

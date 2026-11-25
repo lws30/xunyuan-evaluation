@@ -1,16 +1,20 @@
-# 数字与温度图片的获取和使用
+# 数字和温度图片怎么用
 
-## 随仓库提供的图片
+先用 OCR 程序读图片，再把读出的文字和答案比较。OCR 就是图片文字识别。
 
-- `datasets/readings_v3/`：V3 场景的 6 张数字牌、6 张温度屏及参考答案。
-- `datasets/temperature_v3/sample/`：训练、验证、测试各 10 条温度样本。每个划分从正常、遮挡、模糊、混合、不可读五种情况各选两条，共 30 条样本、60 张图片。
-- `datasets/temperature_v3/`：完整数据的 15,000 条标注、原始划分清单和预览图。
+## 1. 先看仓库里的样例
 
-这些图片来源于本机生成的开发资源，图像和标注采用仓库 MIT 许可。温度图是合成的 RGB 显示图，读数范围为 −20.0 至 120.0 ℃。
+| 目录 | 里面有什么 |
+|---|---|
+| `datasets/readings_v3/` | 6 张数字牌、6 张温度屏和正确答案 |
+| `datasets/temperature_v3/sample/` | 30 条温度样例，每条有完整面板和数字裁剪图，共 60 张图片 |
+| `datasets/temperature_v3/` | 完整数据的标注、训练分组和预览图 |
 
-## 获取完整温度图片
+这些图片由程序绘制。温度范围是 −20.0 至 120.0 ℃，有清晰、遮挡、模糊、遮挡加模糊、完全看不清五种情况。
 
-在仓库根目录执行以下命令。完整压缩包内含 30,000 张图片、15,000 条标注、清单、说明与许可；解压后占用约 1.2 GB。
+## 2. 下载完整温度图片
+
+完整数据有 15,000 条样本、30,000 张图片，解压后约 1.2 GB。在仓库根目录执行：
 
 ```bash
 mkdir -p artifacts/datasets
@@ -18,28 +22,37 @@ curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.1.1/xu
   -o artifacts/datasets/xunyuan-temperature-v3.zip
 curl -fL https://github.com/LWS30/xunyuan-evaluation/releases/download/v0.1.1/SHA256SUMS \
   -o artifacts/datasets/SHA256SUMS
+
+# 检查下载文件是否完整
 (cd artifacts/datasets && sha256sum -c SHA256SUMS)
+
+# 解压到数据目录
 python3 -m zipfile -e artifacts/datasets/xunyuan-temperature-v3.zip datasets/temperature_v3
 ```
 
-下载大小与 SHA-256 同时记录在 `datasets/temperature_v3/download.json`。解压后，`train/`、`val/`、`test/` 中各有 `panels/` 与 `crops/`；同名 JSONL 中的路径相对于 `datasets/temperature_v3/`。
+解压后的 `train/`、`val/`、`test/` 都有 `panels/` 和 `crops/`。前者是完整面板，后者是数字区域的裁剪图。对应的 JSONL 标注一行写一条样本，图片路径以 `datasets/temperature_v3/` 为起点。
+
+训练、验证、测试各有 12,000、1,500、1,500 条样本。同一个温度值的所有图片都放在同一组，使用时沿用这三组划分即可。
+
+## 3. 标注里写了什么
 
 | 字段 | 含义 |
 |---|---|
-| `id` / `split` | 样本标识与训练、验证或测试划分 |
-| `image_path` / `crop_path` | 完整面板与数字行裁剪的相对路径 |
-| `condition` | `normal`、`occlusion`、`blur`、`mixed`、`unreadable` |
-| `readable` / `status` | 是否可读；不可读样本的期望行为为 `abstain` |
-| `value` / `text` / `unit` | 可读时的数值字符串、带单位文本和单位 `C` |
-| `display_roi_xyxy` | 数字行在完整面板中的矩形区域 |
-| `occluded_ink_fraction` / `gaussian_sigma` | 合成遮挡比例与模糊参数 |
-| `source_value` / `source_group` | 生成与分组信息；仅用于数据审计，识别程序只读取图片 |
+| `id` / `split` | 样本编号，以及它属于训练、验证还是测试 |
+| `image_path` / `crop_path` | 完整面板和数字裁剪图的位置 |
+| `condition` | `normal` 清晰、`occlusion` 遮挡、`blur` 模糊、`mixed` 混合、`unreadable` 看不清 |
+| `readable` | 图片上的字是否可读 |
+| `status` | 可读时为 `ok`，看不清时为 `abstain` |
+| `value` / `text` / `unit` | 数值文字、带单位的文字，以及单位 `C` |
+| `display_roi_xyxy` | 数字区域在面板图中的位置 |
+| `occluded_ink_fraction` / `gaussian_sigma` | 生成图片时使用的遮挡比例和模糊强度 |
+| `source_value` / `source_group` | 生成时的原始温度和分组信息，用来检查数据划分 |
 
-训练、验证、测试分别有 12,000、1,500、1,500 条样本。同一温度值及其所有增强均归入同一划分；使用数据时应保留原有划分。不可读图片的 `value`、`text` 为空，不要求猜测被完全遮住的字符。
+看不清的图片，`value` 和 `text` 是 `null`。识别时把图片交给 OCR 程序，再用答案检查结果。
 
-## 从图片运行读数诊断
+## 4. 生成答案文件
 
-先导出图片对应的参考文件。无需下载完整数据即可验证仓库内的图片样例：
+先用仓库带的图片样例试一遍：
 
 ```bash
 python3 -m xunyuan_eval reading-reference \
@@ -47,20 +60,26 @@ python3 -m xunyuan_eval reading-reference \
   --output artifacts/temperature_sample_reference.json
 ```
 
-完整数据下载并解压后，将 `--dataset` 改为 `datasets/temperature_v3` 即可生成全部测试样本的参考文件。导出时会校验标注划分、样本 ID、可读性和图片是否存在；完整标注还会核对原始清单中的 SHA-256。
+下载完整图片后，把 `--dataset` 改成 `datasets/temperature_v3`，就会生成 1,500 条测试样本的答案。程序也会检查标注、图片文件和文件校验值。
 
-将选定划分的图片送入自己的 OCR 模型，保存以下格式的预测。`id` 与 `target_id` 必须对应参考事件；温度数据的两者均为原样本 ID。可读预测的 `value` 必须是字符串；温度单位为 `C`，普通数字单位为 `null`。拒识时应提供非空原因。
+## 5. 保存 OCR 识别结果
+
+让自己的 OCR 程序读取图片，按下面的格式保存为 `my_predictions.json`，把 `value` 填成程序实际读出的文字：
 
 ```json
 {
   "results": [
-    {"id": "test_000000", "target_id": "test_000000", "status": "ok", "value": "31.4", "unit": "C"},
-    {"id": "test_000001", "target_id": "test_000001", "status": "abstain", "reason": "display_occluded"}
+    {"id": "test_000000", "target_id": "test_000000", "status": "ok", "value": "58.1", "unit": "C"},
+    {"id": "test_000007", "target_id": "test_000007", "status": "abstain", "reason": "display_occluded"}
   ]
 }
 ```
 
-上面仅展示格式，ID 和数值请使用实际识别结果。然后运行：
+温度样本的 `id` 和 `target_id` 都使用样本编号。数字牌样例则使用 `datasets/readings_v3/reference.json` 中对应的编号。
+
+读出文字时写 `status: "ok"`。温度单位填 `C`，普通数字单位填 `null`。图片看不清时写 `status: "abstain"`，并在 `reason` 中写原因。
+
+## 6. 比较结果
 
 ```bash
 python3 -m xunyuan_eval readings \
@@ -69,4 +88,6 @@ python3 -m xunyuan_eval readings \
   --output artifacts/temperature_reading_report.json
 ```
 
-结果包括正确数、固定分母和逐项原因。普通数字严格比较字符串；温度默认允许 0.1 ℃ 误差并检查单位；不可读图片检查是否明确拒识。读数诊断单独报告，`competition_score` 为 `null`。
+结果里会写对了几张、总共几张，以及每张的判断原因。少识别的图片也算在总数里。
+
+普通数字逐字比较，保留前面的零、负号和小数点。温度默认允许 0.1 ℃ 误差，同时检查单位。看不清的图片，检查是否填写了原因。

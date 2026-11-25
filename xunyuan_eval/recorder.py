@@ -1,4 +1,4 @@
-"""Write portable telemetry from the simulation/evaluation side."""
+"""Save simulation states as JSONL records."""
 
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ from .validation import validate_sample
 
 
 class TraceRecorder:
-    """One fresh file per trial; never import this into the policy process."""
+    """Save one state per physics step, using a fresh file for each trial."""
 
     def __init__(self, path):
         self.path = Path(path)

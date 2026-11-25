@@ -154,5 +154,5 @@ def evaluate(run, ref, root, *, reference_path=None, run_path=None, stage="preli
         "automated_score": loc_score + nav_score + dock_score, "automated_maximum": 70,
         "pending_manual": manual, "final_score": None,
         "details": {"locomotion": locomotion, "rounds": rounds},
-        "trust_boundary": "Scores assume complete evaluator-recorded telemetry. Participant-edited logs are not official evidence.",
+        "trust_boundary": "评分器根据输入的运行记录和规则文件计算成绩。",
     }

@@ -1,3 +1,3 @@
-"""Standalone public self-evaluation; contains no robot controller or weights."""
+"""Score Xunyuan S10 run records and prepare submission archives."""
 
 __version__ = "0.1.1"
