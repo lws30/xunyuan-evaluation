@@ -383,8 +383,8 @@ def evaluate(run, reference, root, video_reference=None):
 def add_report_score(report,score):
     import copy
     from .io import number
-    if not isinstance(report,dict) or report.get('schema_version')!='2.0':
-        raise FormatError('需要 v2 成绩文件')
+    if not isinstance(report,dict) or report.get('schema_version') not in {'2.0','3.0'}:
+        raise FormatError('需要测评成绩文件')
     score=number(score,'报告分',0)
     if score>30:raise FormatError('报告分应在 0 到 30 之间')
     automated=number(report.get('automated_score'),'自动评分',0)

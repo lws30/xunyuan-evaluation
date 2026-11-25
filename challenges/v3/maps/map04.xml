@@ -1,0 +1,482 @@
+<mujoco model="map04">
+  <default>
+    <default class="robot">
+      <default class="motor">
+        <joint />
+        <motor />
+      </default>
+      <default class="visual">
+        <geom material="default_material" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="collision">
+        <geom material="collision_material" condim="3" contype="1" conaffinity="1" solref="0.005 1" friction="1 0.01 0.001" density="0" group="1" />
+      </default>
+    </default>
+  </default>
+  <compiler angle="radian" meshdir="../robot/meshes" />
+  <compiler autolimits="true" />
+  <asset>
+    <material name="default_material" rgba="0.7 0.7 0.7 1" />
+    <material name="collision_material" rgba="0.0 0.4 0.8 0.2" />
+    <mesh name="base_link" file="base_link.STL" />
+    <mesh name="fl_hipx" file="fl_hipx.STL" />
+    <mesh name="fl_hipy" file="fl_hipy.STL" />
+    <mesh name="fl_knee" file="fl_knee.STL" />
+    <mesh name="fl_wheel" file="fl_wheel.STL" />
+    <mesh name="fr_hipx" file="fr_hipx.STL" />
+    <mesh name="fr_hipy" file="fr_hipy.STL" />
+    <mesh name="fr_knee" file="fr_knee.STL" />
+    <mesh name="fr_wheel" file="fr_wheel.STL" />
+    <mesh name="hl_hipx" file="hl_hipx.STL" />
+    <mesh name="hl_hipy" file="hl_hipy.STL" />
+    <mesh name="hl_knee" file="hl_knee.STL" />
+    <mesh name="hl_wheel" file="hl_wheel.STL" />
+    <mesh name="hr_hipx" file="hr_hipx.STL" />
+    <mesh name="hr_hipy" file="hr_hipy.STL" />
+    <mesh name="hr_knee" file="hr_knee.STL" />
+    <mesh name="hr_wheel" file="hr_wheel.STL" />
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" />
+    <material name="MatPlane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true" />
+  </asset>
+  <worldbody>
+    <body name="base_link" pos="0 0.0 0.5" quat="1 0 0 0" childclass="robot">
+      <freejoint name="floating_base" />
+      <inertial pos="-0.000512 0.057317 0.001182" quat="1 0 0 0" mass="8.023087" diaginertia="0.115559 0.171329 0.262028" />
+      <site name="imu_site" pos="0.0075 -0.0373 0.0556" size="0.005" rgba="1 0 0 1" />
+      <site name="base_site" pos="0 0 0" quat="1 0 0 0" />
+      <geom type="mesh" class="visual" mesh="base_link" name="base_link_geom_0" />
+      <geom size="0.08 0.3" pos="0 0.024 0" quat="0.707107 0 0.707107 0" type="cylinder" class="collision" name="base_link_geom_1" />
+      <geom size="0.08 0.3" pos="0 -0.024 0" quat="0.707107 0 0.707107 0" type="cylinder" class="collision" name="base_link_geom_2" />
+      <geom size="0.08 0.024 0.3" quat="0.707107 0 0.707107 0" type="box" class="collision" name="base_link_geom_3" />
+      <body name="fl_hipx" pos="0.2277 0.0574 0">
+        <inertial pos="-0.005034 0.023524 4.6e-05" quat="0.25609 0.665262 -0.228203 0.663151" mass="0.627405" diaginertia="0.000415056 0.000391723 0.000223221" />
+        <joint name="fl_hipx_joint" pos="0 0 0" axis="-1 0 0" range="-0.6109 0.6109" actuatorfrcrange="-50 50" />
+        <geom type="mesh" class="visual" mesh="fl_hipx" name="fl_hipx_geom_0" />
+        <geom size="0.04 0.05" pos="0 0.054 0" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fl_hipx_geom_1" />
+        <body name="fl_hipy" pos="0 0.0779 0">
+          <inertial pos="7.4e-05 0.018439 -0.129675" quat="0.701304 -0.0510428 0.0516391 0.709155" mass="0.885874" diaginertia="0.00454086 0.00445199 0.00030515" />
+          <joint name="fl_hipy_joint" pos="0 0 0" axis="0 -1 0" range="-2.5307 2.5307" actuatorfrcrange="-50 50" />
+          <geom type="mesh" class="visual" mesh="fl_hipy" name="fl_hipy_geom_0" />
+          <geom size="0.032 0.012 0.09" pos="0 0.012 -0.09" type="box" class="collision" name="fl_hipy_geom_1" />
+          <geom size="0.04 0.04" pos="0 0.018 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fl_hipy_geom_2" />
+          <body name="fl_knee" pos="0 0 -0.18">
+            <inertial pos="-3.2e-05 0.013504 -0.156308" quat="0.703786 -0.068447 0.068447 0.703786" mass="0.640283" diaginertia="0.0022296 0.002221 0.000193398" />
+            <joint name="fl_knee_joint" pos="0 0 0" axis="0 -1 0" range="-2.7227 2.7227" actuatorfrcrange="-50 50" />
+            <geom type="mesh" class="visual" mesh="fl_knee" name="fl_knee_geom_0" />
+            <geom size="0.029 0.01 0.09" pos="0 -0.012 -0.09" type="box" class="collision" name="fl_knee_geom_1" />
+            <geom size="0.04 0.025" pos="0 0.002 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fl_knee_geom_2" />
+            <body name="fl_wheel" pos="0 0.045891 -0.18">
+              <inertial pos="-8e-06 0.001694 -5e-06" quat="0.707107 0 0 0.707107" mass="0.587952" diaginertia="0.002003 0.001059 0.001059" />
+              <joint name="fl_wheel_joint" pos="0 0 0" axis="0 -1 0" actuatorfrcrange="-14 14" />
+              <geom type="mesh" class="visual" mesh="fl_wheel" name="fl_wheel_geom_0" />
+              <geom size="0.081 0.0185" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fl_wheel_geom_1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="fr_hipx" pos="0.2277 -0.0574 0">
+        <inertial pos="-0.004831 -0.02349 0.000169" quat="-0.278522 0.675499 0.205833 0.650968" mass="0.626546" diaginertia="0.000415238 0.000395047 0.000218715" />
+        <joint name="fr_hipx_joint" pos="0 0 0" axis="-1 0 0" range="-0.6109 0.6109" actuatorfrcrange="-50 50" />
+        <geom type="mesh" class="visual" mesh="fr_hipx" name="fr_hipx_geom_0" />
+        <geom size="0.04 0.05" pos="0 -0.054 0" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fr_hipx_geom_1" />
+        <body name="fr_hipy" pos="0 -0.0779 0">
+          <inertial pos="-7.4e-05 -0.018439 -0.129675" quat="0.701304 0.0510428 -0.0516391 0.709155" mass="0.885874" diaginertia="0.00454086 0.00445199 0.00030515" />
+          <joint name="fr_hipy_joint" pos="0 0 0" axis="0 -1 0" range="-2.5307 2.5307" actuatorfrcrange="-50 50" />
+          <geom type="mesh" class="visual" mesh="fr_hipy" name="fr_hipy_geom_0" />
+          <geom size="0.032 0.012 0.09" pos="0 -0.012 -0.09" type="box" class="collision" name="fr_hipy_geom_1" />
+          <geom size="0.04 0.04" pos="0 -0.018 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fr_hipy_geom_2" />
+          <body name="fr_knee" pos="0 0 -0.18">
+            <inertial pos="3.2e-05 -0.013504 -0.156308" quat="0.703786 0.068447 -0.068447 0.703786" mass="0.640283" diaginertia="0.0022296 0.002221 0.000193398" />
+            <joint name="fr_knee_joint" pos="0 0 0" axis="0 -1 0" range="-2.7227 2.7227" actuatorfrcrange="-50 50" />
+            <geom type="mesh" class="visual" mesh="fr_knee" name="fr_knee_geom_0" />
+            <geom size="0.029 0.01 0.09" pos="0 0.012 -0.09" type="box" class="collision" name="fr_knee_geom_1" />
+            <geom size="0.04 0.025" pos="0 -0.002 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fr_knee_geom_2" />
+            <body name="fr_wheel" pos="0 -0.045891 -0.18">
+              <inertial pos="8e-06 -0.001694 5e-06" quat="0.707107 0 0 0.707107" mass="0.587952" diaginertia="0.002003 0.001059 0.001059" />
+              <joint name="fr_wheel_joint" pos="0 0 0" axis="0 -1 0" actuatorfrcrange="-14 14" />
+              <geom type="mesh" class="visual" mesh="fr_wheel" name="fr_wheel_geom_0" />
+              <geom size="0.081 0.0185" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="fr_wheel_geom_1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hl_hipx" pos="-0.2277 0.0574 0">
+        <inertial pos="0.004831 0.02349 0.000169" quat="-0.205833 0.650968 0.278522 0.675499" mass="0.626546" diaginertia="0.000415238 0.000395047 0.000218715" />
+        <joint name="hl_hipx_joint" pos="0 0 0" axis="-1 0 0" range="-0.6109 0.6109" actuatorfrcrange="-50 50" />
+        <geom type="mesh" class="visual" mesh="hl_hipx" name="hl_hipx_geom_0" />
+        <geom size="0.04 0.05" pos="0 0.054 0" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hl_hipx_geom_1" />
+        <body name="hl_hipy" pos="0 0.0779 0">
+          <inertial pos="7.4e-05 0.018439 -0.129675" quat="0.701304 -0.0510428 0.0516391 0.709155" mass="0.885874" diaginertia="0.00454086 0.00445199 0.00030515" />
+          <joint name="hl_hipy_joint" pos="0 0 0" axis="0 -1 0" range="-2.5307 2.5307" actuatorfrcrange="-50 50" />
+          <geom type="mesh" class="visual" mesh="hl_hipy" name="hl_hipy_geom_0" />
+          <geom size="0.032 0.012 0.09" pos="0 0.012 -0.09" type="box" class="collision" name="hl_hipy_geom_1" />
+          <geom size="0.04 0.04" pos="0 0.018 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hl_hipy_geom_2" />
+          <body name="hl_knee" pos="0 0 -0.18">
+            <inertial pos="-3.2e-05 0.013504 -0.156308" quat="0.703786 -0.068447 0.068447 0.703786" mass="0.640283" diaginertia="0.0022296 0.002221 0.000193398" />
+            <joint name="hl_knee_joint" pos="0 0 0" axis="0 -1 0" range="-2.7227 2.7227" actuatorfrcrange="-50 50" />
+            <geom type="mesh" class="visual" mesh="hl_knee" name="hl_knee_geom_0" />
+            <geom size="0.029 0.01 0.09" pos="0 -0.012 -0.09" type="box" class="collision" name="hl_knee_geom_1" />
+            <geom size="0.04 0.025" pos="0 0.002 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hl_knee_geom_2" />
+            <body name="hl_wheel" pos="0 0.045891 -0.18">
+              <inertial pos="-8e-06 0.001694 -5e-06" quat="0.707107 0 0 0.707107" mass="0.587952" diaginertia="0.002003 0.001059 0.001059" />
+              <joint name="hl_wheel_joint" pos="0 0 0" axis="0 -1 0" actuatorfrcrange="-14 14" />
+              <geom type="mesh" class="visual" mesh="hl_wheel" name="hl_wheel_geom_0" />
+              <geom size="0.081 0.0185" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hl_wheel_geom_1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hr_hipx" pos="-0.2277 -0.0574 0">
+        <inertial pos="0.005034 -0.023524 4.6e-05" quat="0.228203 0.663151 -0.25609 0.665262" mass="0.627405" diaginertia="0.000415056 0.000391723 0.000223221" />
+        <joint name="hr_hipx_joint" pos="0 0 0" axis="-1 0 0" range="-0.6109 0.6109" actuatorfrcrange="-50 50" />
+        <geom type="mesh" class="visual" mesh="hr_hipx" name="hr_hipx_geom_0" />
+        <geom size="0.04 0.05" pos="0 -0.054 0" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hr_hipx_geom_1" />
+        <body name="hr_hipy" pos="0 -0.0779 0">
+          <inertial pos="-7.4e-05 -0.018439 -0.129675" quat="0.701304 0.0510428 -0.0516391 0.709155" mass="0.885874" diaginertia="0.00454086 0.00445199 0.00030515" />
+          <joint name="hr_hipy_joint" pos="0 0 0" axis="0 -1 0" range="-2.5307 2.5307" actuatorfrcrange="-50 50" />
+          <geom type="mesh" class="visual" mesh="hr_hipy" name="hr_hipy_geom_0" />
+          <geom size="0.032 0.012 0.09" pos="0 -0.012 -0.09" type="box" class="collision" name="hr_hipy_geom_1" />
+          <geom size="0.04 0.04" pos="0 -0.018 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hr_hipy_geom_2" />
+          <body name="hr_knee" pos="0 0 -0.18">
+            <inertial pos="3.2e-05 -0.013504 -0.156308" quat="0.703786 0.068447 -0.068447 0.703786" mass="0.640283" diaginertia="0.0022296 0.002221 0.000193398" />
+            <joint name="hr_knee_joint" pos="0 0 0" axis="0 -1 0" range="-2.7227 2.7227" actuatorfrcrange="-50 50" />
+            <geom type="mesh" class="visual" mesh="hr_knee" name="hr_knee_geom_0" />
+            <geom size="0.029 0.01 0.09" pos="0 0.012 -0.09" type="box" class="collision" name="hr_knee_geom_1" />
+            <geom size="0.04 0.025" pos="0 -0.002 -0.18" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hr_knee_geom_2" />
+            <body name="hr_wheel" pos="0 -0.045891 -0.18">
+              <inertial pos="8e-06 -0.001694 5e-06" quat="0.707107 0 0 0.707107" mass="0.587952" diaginertia="0.002003 0.001059 0.001059" />
+              <joint name="hr_wheel_joint" pos="0 0 0" axis="0 -1 0" actuatorfrcrange="-14 14" />
+              <geom type="mesh" class="visual" mesh="hr_wheel" name="hr_wheel_geom_0" />
+              <geom size="0.081 0.0185" quat="0.707107 0.707107 0 0" type="cylinder" class="collision" name="hr_wheel_geom_1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <camera name="front" pos=".28 0 .12" xyaxes="0 -1 0 0 0 1" fovy="70" />
+      <camera name="right" pos="0 -.18 .12" xyaxes="-1 0 0 0 0 1" fovy="70" />
+    </body>
+    <light pos="0 0 8" directional="true" dir="0 0 -1" castshadow="false" />
+    <geom name="floor" type="plane" size="80 80 .1" rgba=".27 .3 .3 1" friction=".8 .01 .001" />
+    <geom name="wall_0" type="box" pos="-0.5 -0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_1" type="box" pos="-0.25 -0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_2" type="box" pos="-0.5 0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_3" type="box" pos="-0.25 0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_4" type="box" pos="0.0 -0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_5" type="box" pos="0.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_6" type="box" pos="0.0 0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_7" type="box" pos="0.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_8" type="box" pos="0.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_9" type="box" pos="0.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_10" type="box" pos="1.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_11" type="box" pos="1.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_12" type="box" pos="1.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_13" type="box" pos="1.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_14" type="box" pos="2.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_15" type="box" pos="2.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_16" type="box" pos="2.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_17" type="box" pos="2.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_18" type="box" pos="3.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_19" type="box" pos="3.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_20" type="box" pos="3.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_21" type="box" pos="3.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_22" type="box" pos="4.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_23" type="box" pos="4.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_24" type="box" pos="4.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_25" type="box" pos="4.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_26" type="box" pos="5.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_27" type="box" pos="5.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_28" type="box" pos="5.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_29" type="box" pos="5.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_30" type="box" pos="6.0 -1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_31" type="box" pos="6.25 -1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_32" type="box" pos="6.0 1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_33" type="box" pos="6.25 1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_34" type="box" pos="6.5 -1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_35" type="box" pos="6.75 -2.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_36" type="box" pos="6.5 1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_37" type="box" pos="6.75 2.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_38" type="box" pos="7.0 -2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_39" type="box" pos="7.25 -2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_40" type="box" pos="7.5 -0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_41" type="box" pos="7.5 0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_42" type="box" pos="7.0 2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_43" type="box" pos="7.25 2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_44" type="box" pos="7.5 -2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_45" type="box" pos="7.75 -3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_46" type="box" pos="8.0 -0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_47" type="box" pos="7.75 -0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_48" type="box" pos="8.0 0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_49" type="box" pos="7.75 0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_50" type="box" pos="7.5 2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_51" type="box" pos="7.75 3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_52" type="box" pos="8.5 -2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_53" type="box" pos="8.25 -3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_54" type="box" pos="8.5 -1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_55" type="box" pos="8.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_56" type="box" pos="8.5 1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_57" type="box" pos="8.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_58" type="box" pos="8.0 3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_59" type="box" pos="8.25 3.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_60" type="box" pos="9.0 -2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_61" type="box" pos="8.75 -2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_62" type="box" pos="9.0 -1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_63" type="box" pos="8.75 -1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_64" type="box" pos="9.0 1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_65" type="box" pos="8.75 1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_66" type="box" pos="8.5 3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_67" type="box" pos="8.75 4.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_68" type="box" pos="8.5 7.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_69" type="box" pos="8.75 8.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_70" type="box" pos="8.75 7.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_71" type="box" pos="9.5 2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_72" type="box" pos="9.25 2.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_73" type="box" pos="9.0 4.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_74" type="box" pos="9.25 4.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_75" type="box" pos="9.0 6.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_76" type="box" pos="9.25 6.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_77" type="box" pos="9.0 7.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_78" type="box" pos="9.0 8.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_79" type="box" pos="9.25 8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_80" type="box" pos="10.0 2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_81" type="box" pos="9.75 2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_82" type="box" pos="9.5 4.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_83" type="box" pos="9.75 5.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_84" type="box" pos="9.5 6.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_85" type="box" pos="9.75 6.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_86" type="box" pos="10.0 8.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_87" type="box" pos="9.75 8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_88" type="box" pos="10.5 3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_89" type="box" pos="10.25 3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_90" type="box" pos="10.0 5.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_91" type="box" pos="10.0 5.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_92" type="box" pos="10.5 7.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_93" type="box" pos="10.25 8.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_94" type="box" pos="11.0 3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_95" type="box" pos="10.75 3.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_96" type="box" pos="11.0 7.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_97" type="box" pos="10.75 7.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_98" type="box" pos="11.25 4.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_99" type="box" pos="11.5 6.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_100" type="box" pos="11.25 7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_101" type="box" pos="11.75 4.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_102" type="box" pos="11.75 6.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_103" type="box" pos="12.0 3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_104" type="box" pos="12.25 3.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_105" type="box" pos="12.5 5.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_106" type="box" pos="12.5 6.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_107" type="box" pos="12.25 6.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_108" type="box" pos="12.5 3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_109" type="box" pos="12.75 3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_110" type="box" pos="13.0 5.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_111" type="box" pos="12.75 5.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_112" type="box" pos="13.0 2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_113" type="box" pos="13.25 2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_114" type="box" pos="13.5 4.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_115" type="box" pos="13.25 5.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_116" type="box" pos="13.5 2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_117" type="box" pos="13.75 2.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_118" type="box" pos="14.0 4.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_119" type="box" pos="13.75 4.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_120" type="box" pos="14.0 -17.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_121" type="box" pos="14.25 -17.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_122" type="box" pos="14.25 -18.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_123" type="box" pos="14.0 1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_124" type="box" pos="14.25 1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_125" type="box" pos="14.5 3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_126" type="box" pos="14.25 4.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_127" type="box" pos="14.5 -18.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_128" type="box" pos="14.75 -18.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_129" type="box" pos="14.5 -17.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_130" type="box" pos="14.75 -17.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_131" type="box" pos="14.5 1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_132" type="box" pos="14.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_133" type="box" pos="15.0 3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_134" type="box" pos="14.75 3.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_135" type="box" pos="15.5 -18.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_136" type="box" pos="15.25 -18.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_137" type="box" pos="15.0 -16.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_138" type="box" pos="15.25 -16.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_139" type="box" pos="15.0 0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_140" type="box" pos="15.25 0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_141" type="box" pos="15.5 2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_142" type="box" pos="15.25 3.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_143" type="box" pos="16.0 -17.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_144" type="box" pos="15.75 -18.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_145" type="box" pos="15.5 -16.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_146" type="box" pos="15.75 -16.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_147" type="box" pos="15.5 0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_148" type="box" pos="15.75 0.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_149" type="box" pos="16.0 2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_150" type="box" pos="15.75 2.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_151" type="box" pos="16.5 -17.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_152" type="box" pos="16.25 -17.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_153" type="box" pos="16.0 -15.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_154" type="box" pos="16.0 -15.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_155" type="box" pos="16.0 -14.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_156" type="box" pos="16.25 -14.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_157" type="box" pos="16.0 -8.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_158" type="box" pos="16.25 -9.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_159" type="box" pos="16.0 -8.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_160" type="box" pos="16.0 -7.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_161" type="box" pos="16.0 -7.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_162" type="box" pos="16.25 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_163" type="box" pos="16.0 -0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_164" type="box" pos="16.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_165" type="box" pos="16.0 -0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_166" type="box" pos="16.5 1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_167" type="box" pos="16.25 2.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_168" type="box" pos="16.75 -17.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_169" type="box" pos="16.5 -14.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_170" type="box" pos="16.5 -13.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_171" type="box" pos="16.5 -13.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_172" type="box" pos="16.5 -12.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_173" type="box" pos="16.5 -12.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_174" type="box" pos="16.5 -11.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_175" type="box" pos="16.5 -11.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_176" type="box" pos="16.5 -10.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_177" type="box" pos="16.5 -10.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_178" type="box" pos="16.5 -9.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_179" type="box" pos="16.5 -9.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_180" type="box" pos="16.5 -6.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_181" type="box" pos="16.5 -6.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_182" type="box" pos="16.5 -5.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_183" type="box" pos="16.5 -5.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_184" type="box" pos="16.5 -4.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_185" type="box" pos="16.5 -4.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_186" type="box" pos="16.5 -3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_187" type="box" pos="16.5 -3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_188" type="box" pos="16.5 -2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_189" type="box" pos="16.5 -2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_190" type="box" pos="16.5 -1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_191" type="box" pos="16.5 -1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_192" type="box" pos="17.0 1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_193" type="box" pos="16.75 1.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_194" type="box" pos="17.25 -17.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_195" type="box" pos="17.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_196" type="box" pos="17.5 -17.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_197" type="box" pos="17.75 -17.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_198" type="box" pos="18.0 -15.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_199" type="box" pos="18.0 -14.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_200" type="box" pos="18.0 -14.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_201" type="box" pos="18.0 -13.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_202" type="box" pos="18.0 -13.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_203" type="box" pos="18.0 -12.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_204" type="box" pos="18.0 -12.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_205" type="box" pos="18.0 -11.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_206" type="box" pos="18.0 -11.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_207" type="box" pos="18.0 -10.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_208" type="box" pos="18.0 -10.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_209" type="box" pos="18.0 -9.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_210" type="box" pos="18.0 -9.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_211" type="box" pos="18.0 -8.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_212" type="box" pos="18.0 -6.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_213" type="box" pos="18.0 -6.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_214" type="box" pos="18.0 -5.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_215" type="box" pos="18.0 -5.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_216" type="box" pos="18.0 -4.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_217" type="box" pos="18.0 -4.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_218" type="box" pos="18.0 -3.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_219" type="box" pos="18.0 -3.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_220" type="box" pos="18.0 -2.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_221" type="box" pos="18.0 -2.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_222" type="box" pos="18.0 -1.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_223" type="box" pos="18.0 -1.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_224" type="box" pos="17.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_225" type="box" pos="18.0 -17.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_226" type="box" pos="18.25 -18.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_227" type="box" pos="18.5 -16.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_228" type="box" pos="18.5 -15.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_229" type="box" pos="18.25 -15.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_230" type="box" pos="18.25 -8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_231" type="box" pos="18.25 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_232" type="box" pos="18.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_233" type="box" pos="18.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_234" type="box" pos="18.5 -18.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_235" type="box" pos="18.75 -18.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_236" type="box" pos="19.0 -16.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_237" type="box" pos="18.75 -16.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_238" type="box" pos="18.75 -8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_239" type="box" pos="18.75 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_240" type="box" pos="18.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_241" type="box" pos="18.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_242" type="box" pos="19.0 -18.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_243" type="box" pos="19.25 -19.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_244" type="box" pos="19.5 -17.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_245" type="box" pos="19.25 -17.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_246" type="box" pos="19.25 -8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_247" type="box" pos="19.25 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_248" type="box" pos="19.25 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_249" type="box" pos="19.25 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_250" type="box" pos="19.5 -19.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_251" type="box" pos="19.75 -19.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_252" type="box" pos="20.0 -17.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_253" type="box" pos="19.75 -17.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_254" type="box" pos="19.75 -8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_255" type="box" pos="19.75 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_256" type="box" pos="20.0 -0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_257" type="box" pos="19.75 -1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_258" type="box" pos="20.0 0.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_259" type="box" pos="19.75 1.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_260" type="box" pos="20.25 -19.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_261" type="box" pos="20.5 -18.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_262" type="box" pos="20.25 -18.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_263" type="box" pos="20.5 -8.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_264" type="box" pos="20.25 -8.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_265" type="box" pos="20.5 -7.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_266" type="box" pos="20.25 -7.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_267" type="box" pos="20.5 -0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_268" type="box" pos="20.25 -0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_269" type="box" pos="20.5 0.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_270" type="box" pos="20.25 0.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_271" type="box" pos="21.0 -19.25 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_272" type="box" pos="20.75 -19.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_273" type="box" pos="21.0 -18.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_274" type="box" pos="20.75 -18.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_275" type="box" pos="21.0 -7.75 .65" size="0.035 0.25 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_276" type="box" pos="20.75 -7.5 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="wall_277" type="box" pos="20.75 -8.0 .65" size="0.25 0.035 0.65" rgba=".55 .58 .6 1" friction=".6 .01 .001" />
+    <geom name="start" type="cylinder" pos="0.0 0.0 .003" size=".35 .003" rgba=".1 .75 .2 1" contype="0" conaffinity="0" />
+    <geom name="turnaround" type="cylinder" pos="20.42497833620557 -18.994112549695426 .003" size=".35 .003" rgba=".95 .65 .05 1" contype="0" conaffinity="0" />
+  </worldbody>
+  <contact>
+    <exclude body1="base_link" body2="fl_hipx" />
+    <exclude body1="fl_hipx" body2="fl_hipy" />
+    <exclude body1="fl_hipy" body2="fl_knee" />
+    <exclude body1="fl_knee" body2="fl_wheel" />
+    <exclude body1="base_link" body2="fr_hipx" />
+    <exclude body1="fr_hipx" body2="fr_hipy" />
+    <exclude body1="fr_hipy" body2="fr_knee" />
+    <exclude body1="fr_knee" body2="fr_wheel" />
+    <exclude body1="base_link" body2="hl_hipx" />
+    <exclude body1="hl_hipx" body2="hl_hipy" />
+    <exclude body1="hl_hipy" body2="hl_knee" />
+    <exclude body1="hl_knee" body2="hl_wheel" />
+    <exclude body1="base_link" body2="hr_hipx" />
+    <exclude body1="hr_hipx" body2="hr_hipy" />
+    <exclude body1="hr_hipy" body2="hr_knee" />
+    <exclude body1="hr_knee" body2="hr_wheel" />
+  </contact>
+  <option timestep=".005" gravity="0 0 -9.81" integrator="implicitfast" cone="elliptic" impratio="10" />
+  <visual>
+    <global offwidth="640" offheight="360" />
+    <headlight ambient=".5 .5 .5" diffuse=".7 .7 .7" />
+  </visual>
+  <actuator>
+    <position name="act_fl_hipx_joint" joint="fl_hipx_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_fl_hipy_joint" joint="fl_hipy_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_fl_knee_joint" joint="fl_knee_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_fr_hipx_joint" joint="fr_hipx_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_fr_hipy_joint" joint="fr_hipy_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_fr_knee_joint" joint="fr_knee_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hl_hipx_joint" joint="hl_hipx_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hl_hipy_joint" joint="hl_hipy_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hl_knee_joint" joint="hl_knee_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hr_hipx_joint" joint="hr_hipx_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hr_hipy_joint" joint="hr_hipy_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <position name="act_hr_knee_joint" joint="hr_knee_joint" kp="20" kv="2" forcelimited="true" forcerange="-50 50" />
+    <velocity name="act_fl_wheel_joint" joint="fl_wheel_joint" kv=".8" forcelimited="true" forcerange="-14 14" />
+    <velocity name="act_fr_wheel_joint" joint="fr_wheel_joint" kv=".8" forcelimited="true" forcerange="-14 14" />
+    <velocity name="act_hl_wheel_joint" joint="hl_wheel_joint" kv=".8" forcelimited="true" forcerange="-14 14" />
+    <velocity name="act_hr_wheel_joint" joint="hr_wheel_joint" kv=".8" forcelimited="true" forcerange="-14 14" />
+  </actuator>
+</mujoco>

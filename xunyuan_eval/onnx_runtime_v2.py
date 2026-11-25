@@ -23,6 +23,8 @@ class ModelTimeout(FormatError):
 
 
 def timed_inference(session, outputs, feed, timeout_s=.5):
+    if hasattr(session, 'infer'):
+        return session.infer(outputs, feed, timeout_s)
     import onnxruntime as ort
     options=ort.RunOptions()
     timer=Timer(timeout_s,setattr,args=(options,'terminate',True))
@@ -135,13 +137,14 @@ def contract():
     return description
 
 
-def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_seconds=None,seed=20261125):
+def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_seconds=None,seed=20261125,friction=None):
     import cv2
     import mujoco
     import numpy as np
     from .mujoco_recorder import MuJoCoSampler
     from .recorder import TraceRecorder
     from .challenge_v2 import score_route
+    from .sensors import Lidar, contact_friction, set_ground_friction
     challenge_root=Path(challenge_root);output=Path(output);output.mkdir(parents=True,exist_ok=False)
     model=mujoco.MjModel.from_xml_path(str(challenge_root/route['model']));data=mujoco.MjData(model)
     model.vis.map.znear=.01/model.stat.extent
@@ -152,14 +155,17 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
     defaults=np.asarray(control['default_joint_pos'],dtype=np.float32)
     data.qpos[qadr]=defaults;data.ctrl[:12]=defaults[:12];data.ctrl[12:]=0
     for _ in range(500):mujoco.mj_step(model,data)
+    if friction is not None:
+        set_ground_friction(model, friction)
     data.time=0.;mujoco.mj_forward(model,data)
     cells={tuple(cell) for cell in route['driveable_cells']};step=route['cell_size_m']
     def outside(points):return any((math.floor(p[0]/step),math.floor(p[1]/step)) not in cells for p in points)
     sampler=MuJoCoSampler(model,root_body='base_link',terrain_geom_names=['floor'],
         allowed_terrain_body_names=['fl_wheel','fr_wheel','hl_wheel','hr_wheel'],boundary_check=outside)
-    renderer=mujoco.Renderer(model,144,256)
-    option=mujoco.MjvOption();option.geomgroup[1]=0
     policy_inputs={row.name for row in session.get_inputs()}
+    renderer=mujoco.Renderer(model,144,256) if 'front_rgb' in policy_inputs else None
+    lidar=Lidar(model) if 'lidar_points' in policy_inputs else None
+    option=mujoco.MjvOption();option.geomgroup[1]=0
     policy_outputs=['action']+(['memory_out'] if any(row.name=='memory_out' for row in session.get_outputs()) else [])
     task=read_json(challenge_root/route['task'])
     codes={'left':1,'straight':2,'right':3}
@@ -169,7 +175,7 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
     lengths=[math.dist(a,b) for a,b in zip(points,points[1:])];total=sum(lengths);done_distance=0.
     pulse_start=None;pulse_vector=None;next_pulse=0;frame=-1;inference_count=0;termination='timeout';reason='timeout'
     next_status=1.;base0=data.xpos[body].copy();deadline=min(reference['rules']['timeout_s'],max_seconds) if max_seconds is not None else reference['rules']['timeout_s']
-    rng=random.Random(str(seed)+'_'+route['id']+'_'+str(force_N))
+    rng=random.Random(str(seed)+'_'+route['id']+('' if reference.get('schema_version')=='3.0' else '_'+str(force_N)))
     jitter=reference['disturbance'].get('progress_jitter_fraction',.04)
     pulse_positions=[f+rng.uniform(-jitter,jitter) for f in reference['disturbance']['progress_fractions']]
     def sample(legal=True):
@@ -177,13 +183,18 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
         row['position_m']=[round(x,6) for x in row['position_m']]
         row['envelope_points_m']=[[round(x,6) for x in p] for p in row['envelope_points_m']]
         row['force_world_N']=data.xfrc_applied[body,:3].tolist()
+        if friction is not None:
+            row['ground_contact_friction']=contact_friction(model,data)
         return row
     def summary(row,status):
         return {'time_s':round(row['time_s'],6),'status':status,
                 'relative_position_m':[round(float(x),6) for x in data.xpos[body]-base0],
                 'roll_rad':round(row['roll_rad'],6),'pitch_rad':round(row['pitch_rad'],6),
                 'collision':bool(row['forbidden_contacts'])}
+    points_cloud=np.empty((0,3),np.float32);sensor_time=0.
     try:
+        if hasattr(session,'reset'):
+            session.reset()
         with TraceRecorder(output/'physics.jsonl') as recorder:
             row=sample();rows.append(row);recorder.append(row)
             initial_failure=('collision' if row['forbidden_contacts'] else 'out_of_bounds' if row['out_of_bounds'] else
@@ -194,14 +205,21 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
             while not initial_failure and data.time<deadline-1e-9:
                 if frame%4==3 or frame<0:
                     if inference_count%5==0:
-                        renderer.update_scene(data,camera='front',scene_option=option)
-                        image=renderer.render().transpose(2,0,1)[None].astype(np.float32)/255
+                        if renderer is not None:
+                            renderer.update_scene(data,camera='front',scene_option=option)
+                            image=renderer.render().transpose(2,0,1)[None].astype(np.float32)/255
+                        if lidar is not None:
+                            points_cloud=lidar.scan(data)
+                        sensor_time=float(data.time)
                     rotation=data.xmat[body].reshape(3,3)
                     velocity=np.zeros(6);mujoco.mj_objectVelocity(model,data,mujoco.mjtObj.mjOBJ_BODY,body,velocity,0)
                     imu=np.r_[rotation.T@velocity[:3],rotation.T@np.array([0,0,-1])][None].astype(np.float32)
                     feed={'front_rgb':image,'imu':imu,'joint_position':data.qpos[qadr][None].astype(np.float32),
                           'joint_velocity':data.qvel[vadr][None].astype(np.float32),'previous_action':previous,
-                          'instructions':instructions,'memory':memory}
+                          'instructions':instructions,'memory':memory,'lidar_points':points_cloud,
+                          'sensor_time_s':np.array([sensor_time],np.float64),'time_s':np.array([float(data.time)],np.float64)}
+                    if hasattr(session,'infer'):
+                        policy_inputs.update(['sensor_time_s','time_s'])
                     try:
                         values=timed_inference(session,policy_outputs,{key:value for key,value in feed.items() if key in policy_inputs})
                         action=values[0];memory_out=values[1] if len(values)>1 else memory
@@ -246,7 +264,9 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
                     next_status=math.floor(data.time+1e-8)+1
                 if failure:reason=failure;termination='safety_stop';break
                 if reached:reason='completed';termination='completed';break
-    finally:renderer.close()
+    finally:
+        if renderer is not None:
+            renderer.close()
     final=summary(rows[-1],1 if termination=='completed' else -1)
     if states and abs(states[-1]['time_s']-final['time_s'])<1e-8:
         states[-1]=final
@@ -266,6 +286,8 @@ def robot_attempt(session,challenge_root,reference,route,output,force_N=0,max_se
 def recognize_videos(session,videos_root,manifest,output,split='test',video_id=None):
     import cv2
     import numpy as np
+    if hasattr(session,'read_frame'):
+        return recognize_project_videos(session,videos_root,manifest,output,split,video_id)
     reader_inputs={row.name for row in session.get_inputs()}
     reader_outputs=[key for key in READER_OUTPUTS if any(row.name==key for row in session.get_outputs())]
     detections=[]
@@ -303,6 +325,38 @@ def recognize_videos(session,videos_root,manifest,output,split='test',video_id=N
                 detections.append(detection)
             index+=1
         cap.release()
+        if index!=round(item['duration_s']*item['fps']) or abs(fps-item['fps'])>1e-6:
+            raise FormatError('视频帧数或帧率与清单不一致')
+    write_json(output,{'detections':detections})
+    return output
+
+
+def recognize_project_videos(session,videos_root,manifest,output,split='train',video_id=None):
+    import cv2
+    from .projects import validate_detections
+    selected=[v for v in manifest['videos'] if v['id'].startswith(split) and (video_id is None or v['id']==video_id)]
+    if not selected:
+        raise FormatError('没有找到指定的视频')
+    detections=[]
+    for item in selected:
+        path=contained(Path(videos_root)/split,item['file'])
+        if digest(path)!=item['sha256']:
+            raise FormatError('视频文件校验值不一致')
+        cap=cv2.VideoCapture(str(path));fps=cap.get(cv2.CAP_PROP_FPS);index=0
+        try:
+            if not cap.isOpened() or fps<=0:
+                raise FormatError('无法读取视频')
+            session.reset()
+            while True:
+                ok,frame=cap.read()
+                if not ok:
+                    break
+                rgb=cv2.cvtColor(cv2.resize(frame,(640,360)),cv2.COLOR_BGR2RGB)
+                rows=validate_detections(session.read_frame(rgb,index/fps,item['id']))
+                detections.extend(r for r in rows if r['confidence']>=.5)
+                index+=1
+        finally:
+            cap.release()
         if index!=round(item['duration_s']*item['fps']) or abs(fps-item['fps'])>1e-6:
             raise FormatError('视频帧数或帧率与清单不一致')
     write_json(output,{'detections':detections})

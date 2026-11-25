@@ -1,0 +1,30 @@
+{
+  "schema_version": "3.0",
+  "team": "project-example",
+  "navigation": {
+    "directory": "navigation",
+    "command": [
+      "{python}",
+      "run.py"
+    ],
+    "weights": [
+      "weights/model.npz"
+    ],
+    "requirements": "requirements.txt",
+    "sensors": [
+      "front_rgb"
+    ]
+  },
+  "recognition": {
+    "directory": "recognition",
+    "command": [
+      "{python}",
+      "run.py"
+    ],
+    "weights": [
+      "weights/model.npz"
+    ],
+    "requirements": "requirements.txt"
+  },
+  "report": "report.pdf"
+}

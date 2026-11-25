@@ -1,0 +1,53 @@
+{
+  "schema_version": "2.0",
+  "route_id": "map04",
+  "front_camera": "front",
+  "right_camera": "right",
+  "outbound": [
+    {
+      "junction": "J01",
+      "turn": "left"
+    },
+    {
+      "junction": "J02",
+      "turn": "right"
+    },
+    {
+      "junction": "J03",
+      "turn": "right"
+    },
+    {
+      "junction": "J04",
+      "turn": "straight"
+    },
+    {
+      "junction": "J05",
+      "turn": "left"
+    }
+  ],
+  "at_end": "turn_around",
+  "return": [
+    {
+      "junction": "J05",
+      "turn": "right"
+    },
+    {
+      "junction": "J04",
+      "turn": "straight"
+    },
+    {
+      "junction": "J03",
+      "turn": "left"
+    },
+    {
+      "junction": "J02",
+      "turn": "left"
+    },
+    {
+      "junction": "J01",
+      "turn": "right"
+    }
+  ],
+  "finish": "return_to_start",
+  "timeout_s": 600
+}

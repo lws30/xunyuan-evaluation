@@ -1,83 +1,84 @@
 # 测评程序怎么运行
 
-选手准备模型，我们用统一的地图、S10 模型和视频运行它们。
+选手提供两个项目，我们提供统一的仿真、观测和视频。程序按清单启动选手代码，再用实际运行记录算分。
 
-## 1. 准备环境
-
-在仓库根目录安装：
+## 1. 安装和项目准备
 
 ```bash
 python -m pip install -e ".[runtime]"
 ```
 
-本次使用 Python 3.11、MuJoCo 3.13.0、ONNX Runtime 1.30.0 运行检查。
+地图、机器人、传感器和评分规则在 `challenges/v3/`。两个项目各自的依赖按对应 `AGENT.md` 安装，Agent 执行顺序见[复现步骤](agent-evaluation.md)。
 
-赛道和机器人在 `challenges/v2/`，转弯任务在 `challenges/v2/tasks/`，视频按[下载说明](datasets.md)放进 `datasets/video_v2/`。
-
-## 2. 解压选手文件
-
-```bash
-python -m zipfile -e team_submission.zip team
-python -m xunyuan_eval check-submission --submission team/submission.json
-```
-
-选手包里包含 `policy.onnx`、`reader.onnx`、`report.pdf`、`submission.json`。
-
-## 3. 运行导航和运控
-
-程序从每张图的起点出发，先测一次路线，再从低到高测扰动。
+## 2. 导航调用过程
 
 ```text
-前置画面、转弯指令和传感器状态
+前置图像或雷达点云 + 路线指令 + IMU 和关节状态
     ↓
-选手的 policy.onnx
+选手 navigation 项目的运行代码，加载自己的权重
     ↓
-腿关节和轮子动作
+16 个腿关节和轮子动作
     ↓
-MuJoCo 推进一步，记录位置、姿态、接触和外力
+MuJoCo 推进一步，记录位置、姿态、接触、外力和地面摩擦
     ↓
-评分器比较轨迹、检查失败情况、计算得分
+评分器比较轨迹，检查失败情况，计算成绩
 ```
 
-程序在初始化阶段让机器人进入统一姿态，再从时间 0 开始测试。模型的记忆和上一次动作也在每次测试开始时清零。
+每个物理步长 0.005 秒，模型每秒调用 50 次，图像和点云每秒更新 10 次。纯雷达项目可直接使用点云，无需启动图像渲染。
 
-每个物理步都检查碰撞和姿态，同时每秒保存一次状态摘要。路线结束、碰撞、摔倒、越界或超时都会结束这次运行。
+每次测试先把机器人置于统一姿态；模型在 `reset` 时清空历史，从时间 0 开始运行。各次测试分别启动项目进程。
 
-## 4. 运行视频识别
+每张地图按以下顺序运行：正常路线一次；60、40、20、5 N 各一次；摩擦 0.1、0.2、0.4、0.8 各一次。即每图九次，五图共 45 次。某档失败后，继续单独运行下一档。
 
-识别模型逐帧读取测试视频，输出标牌位置和文字。评分器再和组织方保存的答案比较。
+## 3. 选手自测
 
 ```bash
 MUJOCO_GL=egl python -m xunyuan_eval run-submission \
-  --submission team/submission.json --output results/team01 \
-  --videos datasets/video_v2 \
-  --video-reference organizer/video_test_reference.json --seed 20261125
+  --submission my_team/submission.json --videos datasets/video_v3 \
+  --split train --output results/my_test01
 ```
 
-每批选手使用相同种子，便于比较扰动测试结果。种子写进运行清单。
+这条命令还会运行八段训练视频，将训练识别分与导航运控分放在同一个 `report.json`。`automated_score` 是满分 70 的练习成绩。
 
-视频识别出现模型错误时，这部分记 0 分，并在报告中写明原因；已经完成的路线和扰动成绩保留。
+只跑一张地图，可加 `--route map01`。检查安装时，可再加 `--max-seconds 3` 缩短每次试跑。
 
-## 5. 看输出
+## 4. 组织方正式测试
+
+```bash
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission team/submission.json --videos datasets/video_v3 \
+  --split test --video-reference organizer/video_test_reference.json \
+  --seed 20261126 --output results/team01
+```
+
+同一批选手使用同一份地图、视频、规则和种子。识别测试的答案由组织方保存。
+
+## 5. 输出文件
 
 ```text
 results/team01/
-  run.json                 运行清单和模型校验值
-  report.json              路线、扰动、识别成绩
+  run.json                 运行清单、项目校验值和传感器声明
+  report.json              路线、推力、摩擦、识别成绩
+  reference.json           本次规则快照
   video_predictions.json   模型读出的视频结果
+  logs/                    两个项目的标准错误日志
   map01/
     normal/
       states.json          每秒摘要和结束原因
-      physics.jsonl        每个物理步的详细状态
+      physics.jsonl        每个物理步的真实状态
       forces.json          施力记录
       result.json          本次运行结果
-    force_0.5/
-    ...
+    force_60/
+    force_40/
+    force_20/
+    force_5/
+    friction_0.1/
+    friction_0.2/
+    friction_0.4/
+    friction_0.8/
 ```
 
-`map02` 至 `map05` 的结构相同。每个档位单独初始化、单独记录；失败后停止该图更高档的扰动测试。
-
-只检查安装时，可以加 `--route map01 --max-seconds 3` 缩短试跑。
+`map02` 至 `map05` 结构相同。记录格式见[成绩和记录说明](protocol.md)。模型出现错误时保留日志和已完成测试的结果，未获得的分数计 0。
 
 ## 6. 填入报告分
 
@@ -87,28 +88,16 @@ python -m xunyuan_eval add-report-score \
   --output results/team01/final_report.json
 ```
 
-生成的 `final_report.json` 中，`final_score` 是自动分与报告分之和，满分 100。
+`final_score` 为自动分加报告分，满分 100。
 
-## 7. 重新生成地图和视频
+## 7. 生成新地图和视频
 
 ```bash
-python -m tools.build_challenge_v2 --output artifacts/new_maps
-MUJOCO_GL=egl python -m tools.build_video_v2 \
+python -m tools.build_challenge_v3 \
+  --calibration challenges/v3/calibration.json --seed 42317 \
+  --output organizer/new_challenge
+MUJOCO_GL=egl python -m tools.build_video_v3 \
   --output artifacts/new_videos --private organizer/new_video_answers
 ```
 
-地图生成工具使用仓库自带的机器人资源。视频生成工具把小标牌放在走廊右墙，再移动相机采集画面；训练答案随训练视频保存，测试答案保存在指定的组织方目录。
-
-## 8. 换一组路段长度测试
-
-公开五图用于练习。也可以把直道路段长度随机设为 5 至 8 米，并保留原来的转弯顺序。模型通过前置画面发现路口，再执行该路口对应的指令。
-
-```bash
-python -m tools.build_challenge_v2 --output organizer/round01 --seed 42317
-MUJOCO_GL=egl python -m xunyuan_eval run-submission \
-  --submission team/submission.json --challenge organizer/round01 \
-  --output results/team01_round01 --videos datasets/video_v2 \
-  --video-reference organizer/video_test_reference.json --seed 20261125
-```
-
-同一批选手使用同一份生成地图。地图里的参考路线和评分配置会一起更新。
+地图保持同样的转弯顺序，直道路段长度随机为 5 至 8 米。生成工具同时更新参考轨迹。视频工具把标牌放在右墙，再移动相机采集，训练答案放入训练目录，测试答案放入组织方指定目录。

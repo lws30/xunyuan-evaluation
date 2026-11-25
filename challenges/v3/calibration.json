@@ -1,0 +1,2035 @@
+{
+  "schema_version": "3.0",
+  "controller_sha256": "11b664a8ee004fe4f932d40df17a94b1b67c0d88e37f6cee70320e0484c5fb7f",
+  "metadata_sha256": "a73eecbccdfe27364a9d73155f9d72590f58878b56e08f1d69afb119f885f6b7",
+  "robot_mass_kg": 18.987425,
+  "mujoco_version": "3.13.0",
+  "command_speed_mps": 0.4,
+  "pulse_duration_s": 0.5,
+  "force_scan_descending_N": [
+    200,
+    160,
+    120,
+    100,
+    80,
+    60,
+    40,
+    20,
+    5,
+    0
+  ],
+  "trials_per_force": 6,
+  "calibration_cap_N": 60,
+  "cap_definition": "lowest tested force at which all six baseline probes fail",
+  "baseline_all_passed": true,
+  "push_trials": [
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 59.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.7949999999999626,
+      "maximum_tilt_deg": 45.6427587307692,
+      "maximum_lateral_deviation_m": 0.45655811476693076,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.0975091690911798,
+        -0.45655811476693076,
+        0.3264136244200052
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 59.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.294999999999952,
+      "maximum_tilt_deg": 45.744329772424365,
+      "maximum_lateral_deviation_m": 0.4556546307906317,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.2924280517548885,
+        -0.4556546307906317,
+        0.32533654010408175
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 59.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.7949999999999413,
+      "maximum_tilt_deg": 45.7314453094551,
+      "maximum_lateral_deviation_m": 0.45438965488629596,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.4885391513454143,
+        -0.45438965488629596,
+        0.3259971528732513
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 63.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.814999999999962,
+      "maximum_tilt_deg": 45.43283279578856,
+      "maximum_lateral_deviation_m": 0.5507793325481155,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.08813149280351,
+        0.5507793325481155,
+        0.34597376606429414
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 64.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.3199999999999514,
+      "maximum_tilt_deg": 47.20057175468858,
+      "maximum_lateral_deviation_m": 0.5696912826904662,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.2862740213063817,
+        0.5696912826904662,
+        0.3390329680082055
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 200,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 63.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.814999999999941,
+      "maximum_tilt_deg": 45.42862099502869,
+      "maximum_lateral_deviation_m": 0.5530434207404666,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.4780716261753788,
+        0.5530434207404666,
+        0.34295184945870144
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_200_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 53.59999999999994,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.8349999999999618,
+      "maximum_tilt_deg": 46.01275318561881,
+      "maximum_lateral_deviation_m": 0.44191753561022246,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.1182079946646275,
+        -0.44191753561022246,
+        0.32163279231085673
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 53.59999999999994,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.334999999999951,
+      "maximum_tilt_deg": 46.0912260123746,
+      "maximum_lateral_deviation_m": 0.4408030645456972,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3136930778107743,
+        -0.4408030645456972,
+        0.32133417550164284
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 53.59999999999994,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.8349999999999405,
+      "maximum_tilt_deg": 46.614245916262675,
+      "maximum_lateral_deviation_m": 0.43925283460847536,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5090288817621091,
+        -0.43925283460847536,
+        0.3198268587569584
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 57.59999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.8599999999999612,
+      "maximum_tilt_deg": 46.05971657750284,
+      "maximum_lateral_deviation_m": 0.5521224158576433,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.1089546798275,
+        0.5521224158576433,
+        0.3314442595853873
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 57.59999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.3599999999999506,
+      "maximum_tilt_deg": 46.05168451067606,
+      "maximum_lateral_deviation_m": 0.5532238469767026,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3044630364919474,
+        0.5532238469767026,
+        0.33155224968804115
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 160,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 57.59999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.85999999999994,
+      "maximum_tilt_deg": 46.19640528659193,
+      "maximum_lateral_deviation_m": 0.5545017822570116,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.500135980542031,
+        0.5545017822570116,
+        0.3302637590787264
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_160_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 48.60000000000007,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.9049999999999603,
+      "maximum_tilt_deg": 46.755538794122245,
+      "maximum_lateral_deviation_m": 0.43568665567147935,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.148539839746668,
+        -0.43568665567147935,
+        0.31734188252836465
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 48.60000000000007,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.4049999999999496,
+      "maximum_tilt_deg": 47.12005680486359,
+      "maximum_lateral_deviation_m": 0.43421732822605663,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3456499327020286,
+        -0.43421732822605663,
+        0.3154372107918196
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 48.60000000000007,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.904999999999939,
+      "maximum_tilt_deg": 46.89862512768148,
+      "maximum_lateral_deviation_m": 0.4342602697800779,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5403048357390214,
+        -0.4342602697800779,
+        0.3120605644353046
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 51.00000000000008,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.92499999999996,
+      "maximum_tilt_deg": 46.31344352791174,
+      "maximum_lateral_deviation_m": 0.5375434594351968,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.128283594486254,
+        0.5375434594351968,
+        0.32178749693042386
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 51.00000000000008,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.424999999999949,
+      "maximum_tilt_deg": 46.2980764914666,
+      "maximum_lateral_deviation_m": 0.5386233008846758,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.323777542306484,
+        0.5386233008846758,
+        0.3219195270644974
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 120,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 51.00000000000008,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.9249999999999385,
+      "maximum_tilt_deg": 46.30186571583016,
+      "maximum_lateral_deviation_m": 0.539676599468793,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5192758491107603,
+        0.539676599468793,
+        0.32194941638615043
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_120_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 46.5,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.964999999999959,
+      "maximum_tilt_deg": 47.204103444518935,
+      "maximum_lateral_deviation_m": 0.4402932310553948,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.1718676639087127,
+        -0.4402932310553948,
+        0.3076126009477357
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 46.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.4599999999999485,
+      "maximum_tilt_deg": 45.08048174154019,
+      "maximum_lateral_deviation_m": 0.4295295166789695,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3666607011093683,
+        -0.4295295166789695,
+        0.31312808171070994
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 46.0,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.959999999999938,
+      "maximum_tilt_deg": 45.47940452140487,
+      "maximum_lateral_deviation_m": 0.42748593458766715,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5576916459302088,
+        -0.42748593458766715,
+        0.315133365894886
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 47.5,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 2.974999999999959,
+      "maximum_tilt_deg": 45.76377545465895,
+      "maximum_lateral_deviation_m": 0.5275570392914127,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.148629606964715,
+        0.5275570392914127,
+        0.3318612440277662
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 47.5,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.474999999999948,
+      "maximum_tilt_deg": 45.462706352486606,
+      "maximum_lateral_deviation_m": 0.5285310296203958,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.340617455635481,
+        0.5285310296203958,
+        0.33133655909968257
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 100,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 47.5,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.9749999999999375,
+      "maximum_tilt_deg": 45.45698270970713,
+      "maximum_lateral_deviation_m": 0.5295674216486691,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.536117026793038,
+        0.5295674216486691,
+        0.3313656261637502
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_100_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.054999999999957,
+      "maximum_tilt_deg": 45.52299161597985,
+      "maximum_lateral_deviation_m": 0.42424210084540487,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.2096460792212038,
+        -0.42424210084540487,
+        0.3094835663127322
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.5549999999999464,
+      "maximum_tilt_deg": 45.32935075846262,
+      "maximum_lateral_deviation_m": 0.4237139802632552,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.4052974271075378,
+        -0.4237139802632552,
+        0.31013634571855625
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 4.054999999999936,
+      "maximum_tilt_deg": 45.573927897419594,
+      "maximum_lateral_deviation_m": 0.42206495289523555,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.599878848852674,
+        -0.42206495289523555,
+        0.31018756110858237
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.0799999999999566,
+      "maximum_tilt_deg": 45.22874375423797,
+      "maximum_lateral_deviation_m": 0.5612150675254387,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.1893912942875604,
+        0.5612150675254387,
+        0.33496068357358816
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.579999999999946,
+      "maximum_tilt_deg": 45.08969019110993,
+      "maximum_lateral_deviation_m": 0.5626356266265935,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3848622388982723,
+        0.5626356266265935,
+        0.3346349392940684
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 80,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 39.99999999999992,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 4.079999999999935,
+      "maximum_tilt_deg": 45.09659889446257,
+      "maximum_lateral_deviation_m": 0.5636678029958709,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5803728176982945,
+        0.5636678029958709,
+        0.3346257589265883
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_80_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "path_deviation",
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 28.083374311982425,
+      "maximum_lateral_deviation_m": 0.8140971051349832,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.725090705623371,
+        -0.7012295470773532,
+        0.4050336445169523
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "path_deviation",
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 27.730529167177686,
+      "maximum_lateral_deviation_m": 0.8121676168322151,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.6578021017673894,
+        -0.7279978256630107,
+        0.4103327708022602
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 4.574999999999925,
+      "maximum_tilt_deg": 45.39697576947743,
+      "maximum_lateral_deviation_m": 0.5822601863375985,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.7849873228342792,
+        -0.5822601863375985,
+        0.2885925490374513
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.4599999999999485,
+      "maximum_tilt_deg": 46.01749180236273,
+      "maximum_lateral_deviation_m": 0.7572699146416435,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.3779803148232372,
+        0.7572699146416435,
+        0.29592511576287783
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 3.959999999999938,
+      "maximum_tilt_deg": 45.37508110636467,
+      "maximum_lateral_deviation_m": 0.757895074106998,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.5749413050152685,
+        0.757895074106998,
+        0.2983714455862792
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 60,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 30.00000000000005,
+      "command_speed_mps": 0.4,
+      "survived": false,
+      "failure": "fall",
+      "elapsed_s": 4.4899999999999265,
+      "maximum_tilt_deg": 45.70063191472262,
+      "maximum_lateral_deviation_m": 0.7926523916271546,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        1.7953417768615756,
+        0.7926523916271546,
+        0.2933613228972389
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_60_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 3.569541224702907,
+      "maximum_lateral_deviation_m": 0.06859825901849181,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.732625397839097,
+        -0.06859825901849181,
+        0.4033781968840189
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 3.5710051458641288,
+      "maximum_lateral_deviation_m": 0.05986159376060339,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.733029734001535,
+        -0.05986159376060339,
+        0.40348028138372405
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 3.573240259533315,
+      "maximum_lateral_deviation_m": 0.05295403950562419,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7342000044438337,
+        -0.049454019646880114,
+        0.40354576873575354
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.07689442485683165,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7216393487142065,
+        0.004928161489718808,
+        0.4084375454904229
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.07812096591324895,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7224846173482105,
+        0.011934571993798979,
+        0.4085247123299086
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.07914596542169058,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.724404283879019,
+        0.01631321983530655,
+        0.40866557712372675
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_40_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.01892739011957186,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.730759778629985,
+        -0.0007103701404589818,
+        0.40237258102906276
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.017732712052994714,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.730748242680564,
+        8.85334206096884e-05,
+        0.4023705655155221
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.016686230908582157,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7307798614197027,
+        0.0006563150696805672,
+        0.4023624096775125
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.022783254654988448,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7208347290921164,
+        0.007217514046622493,
+        0.40241175171469257
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.02396999685832605,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7207452593443393,
+        0.006986598402460128,
+        0.40242426837520273
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 20,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 9.99999999999998,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.025037304988053594,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.72068248017288,
+        0.006848076100634777,
+        0.4024469337909347
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_20_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005759759982319341,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.726786493843624,
+        0.004916313275659872,
+        0.40241046731062297
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.726843188544214,
+        0.0049060119108425915,
+        0.40240970917933044
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.726890139631658,
+        0.004902461474375111,
+        0.40240829205238055
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7242628005439316,
+        0.004744999738361532,
+        0.40239417596646465
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005962057475924897,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7242303239617853,
+        0.004725805981925693,
+        0.4023971999876085
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 5,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 2.499999999999995,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.007017718373702454,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7242048169266995,
+        0.004737688806281514,
+        0.40240309525980245
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_5_side_1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_-1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_-1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_-1_start_3.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_1_start_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_1_start_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "force_0_side_1_start_3.5.jsonl"
+    }
+  ],
+  "friction_trials": [
+    {
+      "force_N": 0,
+      "friction": 0.1,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.9487680380981804,
+      "maximum_lateral_deviation_m": 0.1411061220110463,
+      "pre_push_maximum_tilt_deg": 2.9487680380981804,
+      "final_position_m": [
+        2.756189092593431,
+        -0.1411061220110463,
+        0.406957885867252
+      ],
+      "observed_contact_friction": [
+        0.1
+      ],
+      "trace": "friction_0.1_repeat_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.1,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.9487680380981804,
+      "maximum_lateral_deviation_m": 0.1411061220110463,
+      "pre_push_maximum_tilt_deg": 2.9487680380981804,
+      "final_position_m": [
+        2.756189092593431,
+        -0.1411061220110463,
+        0.406957885867252
+      ],
+      "observed_contact_friction": [
+        0.1
+      ],
+      "trace": "friction_0.1_repeat_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.1,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.9487680380981804,
+      "maximum_lateral_deviation_m": 0.1411061220110463,
+      "pre_push_maximum_tilt_deg": 2.9487680380981804,
+      "final_position_m": [
+        2.756189092593431,
+        -0.1411061220110463,
+        0.406957885867252
+      ],
+      "observed_contact_friction": [
+        0.1
+      ],
+      "trace": "friction_0.1_repeat_3.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.2,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.959756006481501,
+      "maximum_lateral_deviation_m": 0.06205750046079021,
+      "pre_push_maximum_tilt_deg": 2.959756006481501,
+      "final_position_m": [
+        2.7172067000889784,
+        -0.06205750046079021,
+        0.40139781254888374
+      ],
+      "observed_contact_friction": [
+        0.2
+      ],
+      "trace": "friction_0.2_repeat_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.2,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.959756006481501,
+      "maximum_lateral_deviation_m": 0.06205750046079021,
+      "pre_push_maximum_tilt_deg": 2.959756006481501,
+      "final_position_m": [
+        2.7172067000889784,
+        -0.06205750046079021,
+        0.40139781254888374
+      ],
+      "observed_contact_friction": [
+        0.2
+      ],
+      "trace": "friction_0.2_repeat_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.2,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.959756006481501,
+      "maximum_lateral_deviation_m": 0.06205750046079021,
+      "pre_push_maximum_tilt_deg": 2.959756006481501,
+      "final_position_m": [
+        2.7172067000889784,
+        -0.06205750046079021,
+        0.40139781254888374
+      ],
+      "observed_contact_friction": [
+        0.2
+      ],
+      "trace": "friction_0.2_repeat_3.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.4,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.97008004519767,
+      "maximum_lateral_deviation_m": 0.006115988902866622,
+      "pre_push_maximum_tilt_deg": 2.97008004519767,
+      "final_position_m": [
+        2.7186418567468533,
+        -0.0038128644799736862,
+        0.40192904592582124
+      ],
+      "observed_contact_friction": [
+        0.4
+      ],
+      "trace": "friction_0.4_repeat_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.4,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.97008004519767,
+      "maximum_lateral_deviation_m": 0.006115988902866622,
+      "pre_push_maximum_tilt_deg": 2.97008004519767,
+      "final_position_m": [
+        2.7186418567468533,
+        -0.0038128644799736862,
+        0.40192904592582124
+      ],
+      "observed_contact_friction": [
+        0.4
+      ],
+      "trace": "friction_0.4_repeat_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.4,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.97008004519767,
+      "maximum_lateral_deviation_m": 0.006115988902866622,
+      "pre_push_maximum_tilt_deg": 2.97008004519767,
+      "final_position_m": [
+        2.7186418567468533,
+        -0.0038128644799736862,
+        0.40192904592582124
+      ],
+      "observed_contact_friction": [
+        0.4
+      ],
+      "trace": "friction_0.4_repeat_3.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 2.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "friction_0.8_repeat_2.5.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "friction_0.8_repeat_3.0.jsonl"
+    },
+    {
+      "force_N": 0,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.5,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 0.0,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.005415082150333665,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7257714170649057,
+        0.004397350400754653,
+        0.4023961230364856
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "friction_0.8_repeat_3.5.jsonl"
+    }
+  ],
+  "friction_effect_diagnostic": [
+    {
+      "force_N": 40,
+      "friction": 0.1,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.9487680380981804,
+      "maximum_lateral_deviation_m": 0.494907863070386,
+      "pre_push_maximum_tilt_deg": 2.9487680380981804,
+      "final_position_m": [
+        2.7451006155754856,
+        -0.494907863070386,
+        0.4078893646259414
+      ],
+      "observed_contact_friction": [
+        0.1
+      ],
+      "trace": "friction_effect_0.1_side_-1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.1,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 4.247301442440545,
+      "maximum_lateral_deviation_m": 0.3860572010235463,
+      "pre_push_maximum_tilt_deg": 2.9487680380981804,
+      "final_position_m": [
+        2.7433665988701934,
+        0.18669462209297902,
+        0.40879829339286666
+      ],
+      "observed_contact_friction": [
+        0.1
+      ],
+      "trace": "friction_effect_0.1_side_1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.2,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 5.636028971759188,
+      "maximum_lateral_deviation_m": 0.2574383468042578,
+      "pre_push_maximum_tilt_deg": 2.959756006481501,
+      "final_position_m": [
+        2.7316738838718715,
+        -0.2574383468042578,
+        0.40852308779250834
+      ],
+      "observed_contact_friction": [
+        0.2
+      ],
+      "trace": "friction_effect_0.2_side_-1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.2,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 7.138033999962374,
+      "maximum_lateral_deviation_m": 0.2384000068253749,
+      "pre_push_maximum_tilt_deg": 2.959756006481501,
+      "final_position_m": [
+        2.783901736114438,
+        0.19086862695359116,
+        0.40801403875220216
+      ],
+      "observed_contact_friction": [
+        0.2
+      ],
+      "trace": "friction_effect_0.2_side_1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.4,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 3.233025006987054,
+      "maximum_lateral_deviation_m": 0.1196294144332284,
+      "pre_push_maximum_tilt_deg": 2.97008004519767,
+      "final_position_m": [
+        2.7640604044166706,
+        -0.1196294144332284,
+        0.41163914117347067
+      ],
+      "observed_contact_friction": [
+        0.4
+      ],
+      "trace": "friction_effect_0.4_side_-1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.4,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 5.684926732331142,
+      "maximum_lateral_deviation_m": 0.1727354766067258,
+      "pre_push_maximum_tilt_deg": 2.97008004519767,
+      "final_position_m": [
+        2.791016045029641,
+        0.15219534922093383,
+        0.4098827293021343
+      ],
+      "observed_contact_friction": [
+        0.4
+      ],
+      "trace": "friction_effect_0.4_side_1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": -1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 3.5710051458641288,
+      "maximum_lateral_deviation_m": 0.05986159376060339,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.733029734001535,
+        -0.05986159376060339,
+        0.40348028138372405
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "friction_effect_0.8_side_-1.jsonl"
+    },
+    {
+      "force_N": 40,
+      "friction": 0.8,
+      "side": 1,
+      "push_start_s": 3.0,
+      "pulse_duration_s": 0.5,
+      "impulse_applied_Ns": 19.99999999999996,
+      "command_speed_mps": 0.4,
+      "survived": true,
+      "failure": null,
+      "elapsed_s": 6.999999999999873,
+      "maximum_tilt_deg": 2.956899340498111,
+      "maximum_lateral_deviation_m": 0.07812096591324895,
+      "pre_push_maximum_tilt_deg": 2.956899340498111,
+      "final_position_m": [
+        2.7224846173482105,
+        0.011934571993798979,
+        0.4085247123299086
+      ],
+      "observed_contact_friction": [
+        0.8
+      ],
+      "trace": "friction_effect_0.8_side_1.jsonl"
+    }
+  ],
+  "calibration_tool_sha256": "0d842d2dfac8384052ef09ea99f6b66b074c159fc9f18b2e7a97e37d7a5b7813",
+  "friction_effect_method": "same 40 N push on each ground; diagnostic separate from friction scoring",
+  "trace_sha256": {
+    "force_200_side_-1_start_2.5.jsonl": "f3f8b8b42bfec8697a00c63b8577c85eb3fd9558cca57d66651248b2f5187399",
+    "force_200_side_-1_start_3.0.jsonl": "67c12c598c76a5da20969572546a7b1d509bbd8ae9c1798ef46927413ed832db",
+    "force_200_side_-1_start_3.5.jsonl": "6264a95d001dec77dcac3a718b9c59311a490762289b82c6101dd19e78562d6d",
+    "force_200_side_1_start_2.5.jsonl": "b6dcaf9518379a4896a80715643c59f939cf182c684a8b7686d7c5912b8a435c",
+    "force_200_side_1_start_3.0.jsonl": "6a81467201db3d8c237408604020d6052e287b93b321170bde23aac1527eb2ae",
+    "force_200_side_1_start_3.5.jsonl": "432db08d27af2c8f0b1169dfc3d7330d470c07cca19aaad19591513a79619658",
+    "force_160_side_-1_start_2.5.jsonl": "79b4d2d46a29d7e78e2417b66c1b842255fb787c2e81b67366f1305557a95db4",
+    "force_160_side_-1_start_3.0.jsonl": "f99515b2d26240f5cd2fc6d272c29cd2d775cdfcdcaf0382ccec97ede736cddf",
+    "force_160_side_-1_start_3.5.jsonl": "8ec0d3cec3836e9d540310a0e85029849bfb967cc9f2f6993342a9e724356db3",
+    "force_160_side_1_start_2.5.jsonl": "29b307bf8e2a2239b0b1e5c24b2752a5d4bcdbf9a2f77bf39194c1e0e8d92663",
+    "force_160_side_1_start_3.0.jsonl": "e98ef29f1404c23e885a2f31c2e168c2f394e424400b53c287821b3bc318abd6",
+    "force_160_side_1_start_3.5.jsonl": "be4bb2901184bc53bf5dfeaeed4fb738be07348f4125b4fc75614a97d42be21d",
+    "force_120_side_-1_start_2.5.jsonl": "2a1a8c198ed05cab1c3b4e81a1bca3de59397555baa08aa4aa7e9b439bb5423c",
+    "force_120_side_-1_start_3.0.jsonl": "88a1651a7ca4b260134537eede4af2a3d587f04437a87f9ffaa32b7e57e498bd",
+    "force_120_side_-1_start_3.5.jsonl": "b875f99e9fbebdbc0c848c5af5a7ceed7abb57c7b2fd3a3d5b9a7c6992f79006",
+    "force_120_side_1_start_2.5.jsonl": "0eff9924e470fe814de0d0523a3ce4bf892ff7b277b2064b2e341e7eda62b9be",
+    "force_120_side_1_start_3.0.jsonl": "caaa297c771342ac15428c630a0ece4599087ae598597787fcac87660af22c66",
+    "force_120_side_1_start_3.5.jsonl": "b522788aa8367e863748160f415b059729ead00e5d0ebd2dddb568c3185160f9",
+    "force_100_side_-1_start_2.5.jsonl": "8379950f2913b3a1eaf6d4baa3b6e9beb72ec80d281382bfc771d18d63eb6ade",
+    "force_100_side_-1_start_3.0.jsonl": "3c9cd82dcce8fd7458294a4aacc0c33f2ae8d6c4a57857e0cf86aa1f6148ad5d",
+    "force_100_side_-1_start_3.5.jsonl": "6ad7be296d7bb1de5961e45a55bbd1595a51b838f3978dd30d1d40447e8c8f7d",
+    "force_100_side_1_start_2.5.jsonl": "ea32120fe09ee4c6f666a360f1d280ef7354e40d5ae09fb27c7bfa6528fc7247",
+    "force_100_side_1_start_3.0.jsonl": "b0855578f4bc676ceeaa8d4f2a9cac04d612687f2493a5bff700941ebd2067c1",
+    "force_100_side_1_start_3.5.jsonl": "95e03ef37a0b91d7480963146eeb3148a56d41a5ff287b11185716bbe8dc0ccc",
+    "force_80_side_-1_start_2.5.jsonl": "082fa385346ded0476a5d0d61776be0184477cf31cab5308a2754f1a285c3b0f",
+    "force_80_side_-1_start_3.0.jsonl": "ff75c70f92a639f6ada4f873f7db9f79dd91022245e34a66e8ec5a8b8bb48a76",
+    "force_80_side_-1_start_3.5.jsonl": "32caf6de475882feeccf787c69afafd93fbb7f22a802504dd1d8280e9e785f97",
+    "force_80_side_1_start_2.5.jsonl": "eb1bb65f1a5fc57b713061437bac409e0809fe5651409a99b5b999b8df39c667",
+    "force_80_side_1_start_3.0.jsonl": "1fbeb95eaad64eae102f43c8b7f1f2e2ac1199f8c06f0280dc8a60c9252f3230",
+    "force_80_side_1_start_3.5.jsonl": "d0b07dce5ae9fe2e4b9796dba2c832acb2b6e21519d53700a65879c6ee66eadc",
+    "force_60_side_-1_start_2.5.jsonl": "00b4d667d63eee644bf5b1b729ba867f4c1c003343ab55f851948512ea68c8c5",
+    "force_60_side_-1_start_3.0.jsonl": "682fcc9ff0b0c216ef1a779a7301d76e25a06bb2e0c27a0a0735ba9314135761",
+    "force_60_side_-1_start_3.5.jsonl": "b1d7d3923985f3054945b8a784c3e49b8f3d66b2829a8a456c299fa53e102e7c",
+    "force_60_side_1_start_2.5.jsonl": "86a9f9e9624313da4e50d71f5931970d7f5906e50099d21dce686fafd329f8c6",
+    "force_60_side_1_start_3.0.jsonl": "ed2e0aaccdeef1fba21fc9c7041b4459211694e67253361a4c65f2c233d611e0",
+    "force_60_side_1_start_3.5.jsonl": "6d0b337c76be614f83397076bc6de8792b308f4e4f8927ef501548d1397b4da7",
+    "force_40_side_-1_start_2.5.jsonl": "ea1df1a84eed036f33ca2e577bf8759405531204c8a1faad8f76a0c9e2d3de3b",
+    "force_40_side_-1_start_3.0.jsonl": "43557497c77dd5176aea72f74619f91b20cb3c973fba04fd4e9b65ee4e43e731",
+    "force_40_side_-1_start_3.5.jsonl": "970455a124d18db340c897cceebe2aebf36a5e0901942ecce0c7594e5f4c8da6",
+    "force_40_side_1_start_2.5.jsonl": "8423aaf05518f88fccb80c36770b4854268a32a5bd490971fd8323e7e63314ae",
+    "force_40_side_1_start_3.0.jsonl": "dd6f47a9f35d526b3b3fa29df0cc4c8eb292a54a0d61e3f65d5385ab3809fc60",
+    "force_40_side_1_start_3.5.jsonl": "f78618763a157202f80ac464bc7f2ba845540ff18f806c391c6bac212b2401be",
+    "force_20_side_-1_start_2.5.jsonl": "fd15d440495721ae705056bcdcec227f911a9df61c22b02558cbd8b9748b0581",
+    "force_20_side_-1_start_3.0.jsonl": "61a574aa3ace994f1b7683437d03df90b90b52057a1f8e09d8f1ff93a658d4df",
+    "force_20_side_-1_start_3.5.jsonl": "4d41a9b31643b06d50c60d6d45bc5d7fcdf017f085de36c2807114c64d03b262",
+    "force_20_side_1_start_2.5.jsonl": "36362d6742104c379f3e453ccff769eb423a106b2efdae8d5a2c96425cc7cbfc",
+    "force_20_side_1_start_3.0.jsonl": "21de904b39c6a105235e33d3d440c84cf63fd4e907078034269b49b8fdf640ae",
+    "force_20_side_1_start_3.5.jsonl": "719c35b20a1cd7447c0e71603728a32228818def648b303e7f27338cc811c849",
+    "force_5_side_-1_start_2.5.jsonl": "0e3424f1e295658b51b92ca8b650a2a4e7cdec887de9dfc1e0412221c0ca1355",
+    "force_5_side_-1_start_3.0.jsonl": "f461194f62efbfe2722fbf23387b00f6f67032babe83d54f7970a949459bc393",
+    "force_5_side_-1_start_3.5.jsonl": "6301cf65e6c5e48670ada1879bf51493d2de640acf1e774bed3c12eb963fa310",
+    "force_5_side_1_start_2.5.jsonl": "a5a1f61036afac2cef6fd8d2dde1a298fbe34150d6aa228802cba4f69b48378d",
+    "force_5_side_1_start_3.0.jsonl": "5a3a5860dd4b3840f10e570281cad6274e8b47dc1fb82fa6a45d17f49c419cf4",
+    "force_5_side_1_start_3.5.jsonl": "edcc58cff2c721c5076b699d1279fde7346cd90b39f4199e4cb7c88c7d30fdda",
+    "force_0_side_-1_start_2.5.jsonl": "1b3e6122cfbe37afdc0721645345d9c17e42784f0ddd327c559643da30722427",
+    "force_0_side_-1_start_3.0.jsonl": "42d4bc34a747805e67594d2bf67ec7efcf761062ba5ea3555aa7e980ba035d4d",
+    "force_0_side_-1_start_3.5.jsonl": "abbcb5b48bef0c6ab2d57b7b60ccb0fff23f3e34da8788fd82b0978cb85b242f",
+    "force_0_side_1_start_2.5.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "force_0_side_1_start_3.0.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "force_0_side_1_start_3.5.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "friction_0.1_repeat_2.5.jsonl": "cfd0533ca92b0735619703f39ddaabc21c3a185fa50911df6eda488a33a0a5cc",
+    "friction_0.1_repeat_3.0.jsonl": "cfd0533ca92b0735619703f39ddaabc21c3a185fa50911df6eda488a33a0a5cc",
+    "friction_0.1_repeat_3.5.jsonl": "cfd0533ca92b0735619703f39ddaabc21c3a185fa50911df6eda488a33a0a5cc",
+    "friction_0.2_repeat_2.5.jsonl": "f22971b0a5b9e8f9d51313c10227a44d2feb79d7448b41dec9347e7bfc1ea118",
+    "friction_0.2_repeat_3.0.jsonl": "f22971b0a5b9e8f9d51313c10227a44d2feb79d7448b41dec9347e7bfc1ea118",
+    "friction_0.2_repeat_3.5.jsonl": "f22971b0a5b9e8f9d51313c10227a44d2feb79d7448b41dec9347e7bfc1ea118",
+    "friction_0.4_repeat_2.5.jsonl": "ef274d197cbfea157e4bbccf7cd318e44acc29cb1216e9d395c587ef77b1ce1d",
+    "friction_0.4_repeat_3.0.jsonl": "ef274d197cbfea157e4bbccf7cd318e44acc29cb1216e9d395c587ef77b1ce1d",
+    "friction_0.4_repeat_3.5.jsonl": "ef274d197cbfea157e4bbccf7cd318e44acc29cb1216e9d395c587ef77b1ce1d",
+    "friction_0.8_repeat_2.5.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "friction_0.8_repeat_3.0.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "friction_0.8_repeat_3.5.jsonl": "871951f2ddd187306772921a5db2f90e70e252104452d0f20abe12300acf310a",
+    "friction_effect_0.1_side_-1.jsonl": "79d626da3e02c486165c5a1030b574bb4568097f08e970115505fb9a02d1dca3",
+    "friction_effect_0.1_side_1.jsonl": "8fa01ae81eba90a6da1b3255a6d5d8c45854458f35cc4d2ceddeec6c80463e73",
+    "friction_effect_0.2_side_-1.jsonl": "913fc3a1bdf8707cb0f025f88f584c6aa81d0e5e1f0f071cbda3c7c86b5b3157",
+    "friction_effect_0.2_side_1.jsonl": "0b00ebfc14eda41b0c171a6d1fc49ebb4c6b76e3b17e02cb7286d66b98c53c4f",
+    "friction_effect_0.4_side_-1.jsonl": "893632573213ee520f7338466d23f8695f9e52f3a5251525b076561a0f870603",
+    "friction_effect_0.4_side_1.jsonl": "1df3d21a282b317201b39c99b488b83916a8119ca49f1a3edcb6552a54856425",
+    "friction_effect_0.8_side_-1.jsonl": "43557497c77dd5176aea72f74619f91b20cb3c973fba04fd4e9b65ee4e43e731",
+    "friction_effect_0.8_side_1.jsonl": "dd6f47a9f35d526b3b3fa29df0cc4c8eb292a54a0d61e3f65d5385ab3809fc60"
+  }
+}

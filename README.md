@@ -1,111 +1,110 @@
 # 巡渊 S10 测评工具
 
-选手提交两个 ONNX 模型和一份 PDF 报告。测评程序在五张赛道上运行导航运控模型，再用测试视频检查识别模型，最后生成成绩 JSON。
+选手提交两个完整项目：一个控制机器人走路线，一个识别视频里的数字和温度。每个项目都带运行代码、权重、依赖和 `AGENT.md`。测评程序启动选手代码，在仿真和视频中运行，自动生成成绩。
 
-当前版本：**v0.2.0**。
+当前版本：**v0.3.0**。
 
 ## 1. 分数怎么算
 
 | 项目 | 分值 | 怎么测 |
 |---|---:|---|
-| 导航和运控 | 50 | 路线 30 分：五张图各走完 5 个路口并返回；扰动 20 分：每图按 0.5、1、3、5 牛依次测试 |
-| 视频识别 | 20 | 识别两段测试视频中的数字和温度 |
+| 导航和运控 | 50 | 路线 30 分、推力 10 分、低摩擦地面 10 分 |
+| 视频识别 | 20 | 识别数字牌和温度屏 |
 | 报告 | 30 | 评委评分后填入总成绩 |
 
-每张地图的路线满分 6 分：5 个路口各 1 分，返程 1 分。按轨迹离规定路线有多远扣分；撞墙、摔倒或越界时，本次测试失败。详细扣分表见[评分规则](docs/rules.md)。
+推力按 **60 → 40 → 20 → 5 N** 测试，每次侧推持续 **0.5 秒**。每档单独从起点开始，高档失败后继续测低档。摩擦从最滑的地面开始测：**0.1 → 0.2 → 0.4 → 0.8**。
 
-## 2. 我们给选手什么
+60 N 最高档来自本机训练模型的重复实测：以 0.4 米/秒前进，左右各三个施力时机；40 N 六次通过，60 N 六次失败。详细结果见[扰动实测](docs/disturbance-validation.md)，具体扣分见[评分规则](docs/rules.md)。
 
-- 五张 MuJoCo 赛道，包含 S10 模型、前置相机和右侧相机。
-- 每张图一份 JSON 任务，写明去程、掉头和返程怎么走。
-- 十段右侧视角视频，每段 10 分钟；8 段训练、2 段测试。
-- 模型输入输出格式、提交检查工具和本地试跑命令。
+## 2. 地图长什么样
+
+每张图有五个 T/Y 路口，走到终点后掉头，沿规定路线返回。绿色是起点，橙色是掉头位置，蓝线是规定路线。
+
+| 地图 1 | 地图 2 | 地图 3 |
+|---|---|---|
+| <img src="challenges/v3/maps/map01.png" width="320" alt="地图1路线示意图"> | <img src="challenges/v3/maps/map02.png" width="320" alt="地图2路线示意图"> | <img src="challenges/v3/maps/map03.png" width="320" alt="地图3路线示意图"> |
+| 地图 4 | 地图 5 | |
+| <img src="challenges/v3/maps/map04.png" width="320" alt="地图4路线示意图"> | <img src="challenges/v3/maps/map05.png" width="320" alt="地图5路线示意图"> | |
 
 | 地图 | 去程五个路口 | 任务文件 |
 |---|---|---|
-| [地图 1](challenges/v2/maps/map01.png) | 左、直、右、左、右 | [map01.json](challenges/v2/tasks/map01.json) |
-| [地图 2](challenges/v2/maps/map02.png) | 直、直、左、右、左 | [map02.json](challenges/v2/tasks/map02.json) |
-| [地图 3](challenges/v2/maps/map03.png) | 右、左、直、右、直 | [map03.json](challenges/v2/tasks/map03.json) |
-| [地图 4](challenges/v2/maps/map04.png) | 左、右、右、直、左 | [map04.json](challenges/v2/tasks/map04.json) |
-| [地图 5](challenges/v2/maps/map05.png) | 直、左、右、左、直 | [map05.json](challenges/v2/tasks/map05.json) |
+| 1 | 左、直、右、左、右 | [map01.json](challenges/v3/tasks/map01.json) |
+| 2 | 直、直、左、右、左 | [map02.json](challenges/v3/tasks/map02.json) |
+| 3 | 右、左、直、右、直 | [map03.json](challenges/v3/tasks/map03.json) |
+| 4 | 左、右、右、直、左 | [map04.json](challenges/v3/tasks/map04.json) |
+| 5 | 直、左、右、左、直 | [map05.json](challenges/v3/tasks/map05.json) |
 
-到终点后掉头，按任务文件中的返程指令回到起点。
-
-机器人用前置摄像头发现路口，再按顺序执行任务里的指令。例如任务写着“左、直、右”，就表示看到第一个路口左转，看到第二个路口直行，看到第三个路口右转。模型自己判断何时到达路口。
+模型通过前置画面或雷达发现路口，再执行提前给好的方向。清单中填写自己使用的传感器：纯视觉、纯雷达或两者融合。成绩文件会保留这项配置。
 
 ## 3. 选手提交什么
 
 ```text
-team_submission.zip
-  submission.json   队伍名称和文件清单
-  policy.onnx       导航和运控模型
-  reader.onnx       视频识别模型
-  report.pdf        方案报告
+my_team/
+  submission.json
+  navigation/
+    AGENT.md
+    run.py
+    requirements.txt
+    weights/
+  recognition/
+    AGENT.md
+    run.py
+    requirements.txt
+    weights/
+  report.pdf
 ```
 
-`policy.onnx` 读取前置图像和路线指令，输出腿关节和轮子的动作。`reader.onnx` 读取右侧视频画面，输出标牌位置、读数和“是否看得清”。每个 ONNX 文件内包含运行所需的权重。
+权重可以是 `.pt`、`.pth`、ONNX 或其他格式。选手的代码负责加载权重和完成推理。两个项目都按[运行接口](docs/model-interface.md)接收输入、返回结果。
 
-按[提交说明](docs/submission.md)准备好文件后，先检查，再打包：
+每个 `AGENT.md` 写清安装方法、权重位置、运行命令、输入输出和检查方法。组织方的 Agent 按说明安装并运行项目。完整步骤见[提交说明](docs/submission.md)和[Agent 复现步骤](docs/agent-evaluation.md)。
 
-```bash
-python -m xunyuan_eval check-submission --submission my_team/submission.json
-python -m xunyuan_eval package-models \
-  --submission my_team/submission.json --output artifacts/team_submission.zip
-```
+## 4. 先试一下安装和接口
 
-## 4. 本地怎么试
-
-使用 Python 3.11，安装程序和仿真依赖：
+使用 Python 3.11，在仓库根目录执行：
 
 ```bash
 git clone https://github.com/LWS30/xunyuan-evaluation.git
 cd xunyuan-evaluation
 python -m pip install -e ".[runtime]"
-```
-
-先生成一组用于检查安装和接口的示例文件。这个示例让机器人原地站着：
-
-```bash
-python -m tools.make_v2_interface_example --output artifacts/interface_example
+python -m tools.make_project_example --output artifacts/example_team
+python -m xunyuan_eval check-submission \
+  --submission artifacts/example_team/submission.json --smoke
 MUJOCO_GL=egl python -m xunyuan_eval run-submission \
-  --submission artifacts/interface_example/submission.json \
-  --route map01 --max-seconds 3 --output artifacts/first_run
+  --submission artifacts/example_team/submission.json \
+  --route map01 --max-seconds 3 --output results/first_run
 ```
 
-打开 `artifacts/first_run/report.json` 看结果。每秒的位置、姿态和碰撞状态保存在各次运行的 `states.json`，详细记录在 `physics.jsonl`。
+生成的两个示例项目可以直接运行：导航输出零动作，识别输出空结果，用来检查安装、进程通信和仿真记录。加 `--format pt` 可以生成使用 PyTorch 权重的示例，需要先安装 PyTorch。
 
-换成自己的模型后，去掉 `--route` 和 `--max-seconds`，就会运行五张地图和四档扰动测试。模型具体格式见[模型接口](docs/model-interface.md)。
+## 5. 选手怎么给自己打分
 
-## 5. 视频怎么训练和检查
-
-[下载视频](docs/datasets.md)后，用自己的识别模型读取一段训练视频：
+按[下载说明](docs/datasets.md)把视频放进 `datasets/video_v3/`。准备好自己的两个项目后运行：
 
 ```bash
-python -m xunyuan_eval read-videos \
-  --model my_team/reader.onnx --videos datasets/video_v2 \
-  --split train --video train01 --output artifacts/train01_predictions.json
-python -m xunyuan_eval score-video \
-  --predictions artifacts/train01_predictions.json \
-  --reference datasets/video_v2/train/reference.json --video train01 \
-  --output artifacts/train01_score.json
+python -m xunyuan_eval check-submission --submission my_team/submission.json --smoke
+MUJOCO_GL=egl python -m xunyuan_eval run-submission \
+  --submission my_team/submission.json --videos datasets/video_v3 \
+  --split train --output results/my_test01
 ```
 
-查看错了哪些标牌，修改模型后再试。每段视频有 6 个数字牌、6 个温度屏，字比较小，包含模糊、遮挡和完全看不清的情况。
+程序会跑五张图、四档推力、四档地面摩擦，再读取八段训练视频。打开 `results/my_test01/report.json` 看路线 30、推力 10、摩擦 10、识别 20，以及合计的 **70 分练习成绩**。
 
-## 6. 我们怎么给选手测评
+实际位置、姿态和碰撞由 MuJoCo 记录。成绩里列出每次失败的原因，训练识别结果还列出正确答案。修改模型后，换一个输出目录再测，例如 `results/my_test02`。
 
-解压选手的提交包后，运行：
+只检查识别模型时，也可以[单独运行一段训练视频](docs/datasets.md)。视频从清晰大字开始，逐步增加模糊、噪声和遮挡，每段仍为十分钟。
+
+## 6. 我们怎么正式测评
+
+组织方 Agent 按两个 `AGENT.md` 准备依赖，先运行检查，再使用同一批地图和种子评测所有队伍：
 
 ```bash
 MUJOCO_GL=egl python -m xunyuan_eval run-submission \
-  --submission team/submission.json --output results/team01 \
-  --videos datasets/video_v2 \
-  --video-reference organizer/video_test_reference.json --seed 20261125
+  --submission team/submission.json --videos datasets/video_v3 \
+  --split test --video-reference organizer/video_test_reference.json \
+  --seed 20261126 --output results/team01
 ```
 
-程序负责运行模型、记录轨迹、检查碰撞、施加扰动和计算成绩。同一批选手使用同一组地图、参数和随机种子。测试视频的答案文件由组织方保存。
-
-评委给报告打分后，例如 27 分：
+测试视频共两段，答案由组织方保存。自动分满分 70。评委给报告打分后，例如 27 分：
 
 ```bash
 python -m xunyuan_eval add-report-score \
@@ -113,28 +112,28 @@ python -m xunyuan_eval add-report-score \
   --output results/team01/final_report.json
 ```
 
-自动分加上报告分，就是 100 分制总成绩。更多运行细节见[测评程序说明](docs/integration.md)。
+`final_score` 就是满分 100 的最终成绩。选手使用以下命令打包完整代码和权重：
+
+```bash
+python -m xunyuan_eval package-models \
+  --submission my_team/submission.json --output artifacts/team_submission.zip
+```
 
 ## 7. 文件和检查命令
 
 ```text
-challenges/v2/      五张赛道、S10模型、转弯任务和评分参数
-xunyuan_eval/      模型运行、记录和评分程序
-datasets/video_v2/ 视频清单、训练答案和下载说明
-tools/             生成地图、视频和示例模型的工具
+challenges/v3/      五张赛道、机器人、路线、传感器和评分参数
+xunyuan_eval/       项目运行、观测采集、记录和评分
+datasets/video_v3/  视频清单、训练答案和下载说明
+tools/             生成地图、视频、示例和扰动实测工具
 tests/             自动测试
-docs/              提交、模型接口、评分和数据说明
+docs/              提交、接口、评分和复现说明
 ```
 
 ```bash
 python -m unittest discover -s tests -v
-python -m tools.check_v2_physics --output artifacts/physics_check.json
-```
-
-想先看打分文件的格式，可以生成一组理想轨迹和识别结果：
-
-```bash
-python -m xunyuan_eval demo-v2 --output artifacts/scoring_example
+python -m tools.check_v3_physics --output results/physics_check.json
+python -m xunyuan_eval demo-v3 --output artifacts/scoring_example
 python -m xunyuan_eval score-challenge \
   --run artifacts/scoring_example/run.json \
   --reference artifacts/scoring_example/reference.json \
@@ -142,4 +141,4 @@ python -m xunyuan_eval score-challenge \
   --output artifacts/scoring_example/report.json
 ```
 
-这组生成记录的预期得分是路线 30、扰动 20、识别 20，报告分等待评委填写。
+最后这组生成记录用于查看打分格式，预期自动分为 70。

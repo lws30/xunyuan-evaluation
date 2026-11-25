@@ -1,0 +1,113 @@
+{
+  "schema_version": "3.0",
+  "source": "mujoco_right_camera_rendering",
+  "training_videos": 8,
+  "test_videos": 2,
+  "seconds_per_video": 600,
+  "signs_per_video": 12,
+  "difficulty_order": [
+    "easy",
+    "medium",
+    "hard",
+    "unreadable"
+  ],
+  "labels_per_level": {
+    "easy": 4,
+    "medium": 4,
+    "hard": 2,
+    "unreadable": 2
+  },
+  "video_reading_maximum": 20,
+  "videos": [
+    {
+      "id": "train01",
+      "file": "train01.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "a3cf7a1b7f27b8bd2141e2f9e52cf466c6cc898a4dd7fa6562cb0a29a5f6601c"
+    },
+    {
+      "id": "train02",
+      "file": "train02.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "5ee8bf18f1f5f0793a14216523242d8524008f8c997d6896f23b86c74489e36f"
+    },
+    {
+      "id": "train03",
+      "file": "train03.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "42317e05e107a2e9f732e72beb3c6dfc1015c7295d108c600448e367e7fc7c32"
+    },
+    {
+      "id": "train04",
+      "file": "train04.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "117c6065dbe7d121a90cd5ea237ef1c4505740b7fec58c1fe1f6e84591eca1bc"
+    },
+    {
+      "id": "train05",
+      "file": "train05.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "51790e5092f82f31be7c74d99e1e3040b922b5dcba80b8e6d9abf0deaf753a5d"
+    },
+    {
+      "id": "train06",
+      "file": "train06.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "61c935cb822ba442518cf83d09e8bee2cf1f0778b1043c768e09a7c749de3233"
+    },
+    {
+      "id": "train07",
+      "file": "train07.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "1f31e679c96992fb242ebfe9f2dccc421a0c3cbdc740ad05ce78feb07f5f164c"
+    },
+    {
+      "id": "train08",
+      "file": "train08.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "f2fca35320385d371027d588823508f49b8251dd676dc9cd24eed3358b62f25e"
+    },
+    {
+      "id": "test01",
+      "file": "test01.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "70a0ccbe4f00ceff4d394797e12a0db02ed9748fbc64e7edc755f0f31d1f5ebf"
+    },
+    {
+      "id": "test02",
+      "file": "test02.mp4",
+      "duration_s": 600,
+      "fps": 5,
+      "width": 640,
+      "height": 360,
+      "sha256": "b22af9e7a626a63d798bfd3b7c133c1994fb333567ff95c8fa61ee69ded68c6a"
+    }
+  ]
+}

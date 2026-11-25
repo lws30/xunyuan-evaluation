@@ -1,0 +1,83 @@
+{
+  "schema_version": "3.0",
+  "protocol": "xunyuan-project-v1",
+  "navigation_sensors": [
+    "front_rgb",
+    "lidar_points"
+  ],
+  "lidar": {
+    "channels": 16,
+    "azimuth_samples": 128,
+    "vertical_degrees": [
+      -15,
+      15
+    ],
+    "horizontal_degrees": 360,
+    "minimum_range_m": 0.08,
+    "maximum_range_m": 20,
+    "frequency_hz": 10,
+    "position_in_base_m": [
+      0.2,
+      0,
+      0.25
+    ],
+    "frame": "lidar: x forward, y left, z up",
+    "columns": [
+      "x_m",
+      "y_m",
+      "z_m"
+    ]
+  },
+  "front_rgb": {
+    "shape": [
+      144,
+      256,
+      3
+    ],
+    "dtype": "uint8",
+    "color": "RGB",
+    "frequency_hz": 10,
+    "fov_y_degrees": 70,
+    "position_in_base_m": [
+      0.28,
+      0,
+      0.12
+    ],
+    "intrinsics_px": {
+      "fx": 102.82665648543225,
+      "fy": 102.82665648543225,
+      "cx": 128,
+      "cy": 72
+    },
+    "frame": "camera: x right, y down, z forward",
+    "axes_in_base": {
+      "x": [
+        0,
+        -1,
+        0
+      ],
+      "y": [
+        0,
+        0,
+        -1
+      ],
+      "z": [
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "policy_frequency_hz": 50,
+  "physics_frequency_hz": 200,
+  "reader_image": {
+    "shape": [
+      360,
+      640,
+      3
+    ],
+    "dtype": "uint8",
+    "color": "RGB",
+    "frequency_hz": 5
+  }
+}
