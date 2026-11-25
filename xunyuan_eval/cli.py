@@ -1,4 +1,4 @@
-"""Offline CLI: demo, validate, evaluate, readings, prepare-submission."""
+"""Offline evaluation, image-reference export, and submission CLI."""
 
 import argparse
 import json
@@ -9,6 +9,7 @@ from .demo import create_demo
 from .evaluator import evaluate
 from .io import FormatError, read_json, write_json
 from .readings import evaluate_readings
+from .reading_dataset import reading_reference
 from .submission import prepare_submission
 from .validation import validate_reference, validate_run
 
@@ -29,11 +30,23 @@ def main(argv=None):
     readings.add_argument("--predictions", type=Path, required=True)
     readings.add_argument("--reference", type=Path, required=True)
     readings.add_argument("--output", type=Path, required=True)
+    images = sub.add_parser("reading-reference", help="从温度图片数据集导出读数诊断参考")
+    images.add_argument("--dataset", type=Path, required=True)
+    images.add_argument("--split", choices=["train", "val", "test"], required=True)
+    images.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "demo":
             path = create_demo(args.output)
             print(json.dumps({"run": str(path), "kind": "synthetic_protocol_fixture_not_robot_simulation"}))
+            return 0
+        if args.command == "reading-reference":
+            if args.output.resolve().is_relative_to(args.dataset.resolve()):
+                raise FormatError("Output must be outside the source dataset")
+            result = reading_reference(args.dataset, args.split)
+            write_json(args.output, result)
+            print(json.dumps({"reference": str(args.output), "events": len(result["events"]),
+                              "split": args.split}, ensure_ascii=False))
             return 0
         if args.command == "readings":
             if args.output.resolve() in {args.predictions.resolve(), args.reference.resolve()}:

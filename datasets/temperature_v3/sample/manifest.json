@@ -1,0 +1,29 @@
+{
+  "version": "temperature-v3-public-sample",
+  "source": "synthetic_display_v3",
+  "subset_of": "temperature_v3",
+  "samples_per_split": 10,
+  "counts": {
+    "train": {
+      "normal": 2,
+      "mixed": 2,
+      "unreadable": 2,
+      "occlusion": 2,
+      "blur": 2
+    },
+    "val": {
+      "blur": 2,
+      "mixed": 2,
+      "normal": 2,
+      "occlusion": 2,
+      "unreadable": 2
+    },
+    "test": {
+      "blur": 2,
+      "normal": 2,
+      "mixed": 2,
+      "occlusion": 2,
+      "unreadable": 2
+    }
+  }
+}

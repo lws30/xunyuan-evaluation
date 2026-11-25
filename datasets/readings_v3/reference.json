@@ -1,0 +1,116 @@
+{
+  "dataset_id": "xunyuan-reading-panels-v3",
+  "source": "synthetic_scene_texture",
+  "split": "development",
+  "temperature_tolerance_C": "0.1",
+  "events": [
+    {
+      "id": "I01",
+      "target_id": "G0",
+      "kind": "digits",
+      "readable": true,
+      "answer": "00127",
+      "unit": null,
+      "image_path": "images/network_G0.png"
+    },
+    {
+      "id": "I02",
+      "target_id": "A",
+      "kind": "digits",
+      "readable": true,
+      "answer": "-08.3",
+      "unit": null,
+      "image_path": "images/network_A.png"
+    },
+    {
+      "id": "I03",
+      "target_id": "B",
+      "kind": "digits",
+      "readable": true,
+      "answer": "083",
+      "unit": null,
+      "image_path": "images/network_B.png"
+    },
+    {
+      "id": "I04",
+      "target_id": "T01",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "31.4",
+      "unit": "C",
+      "image_path": "images/network_T01.png"
+    },
+    {
+      "id": "I05",
+      "target_id": "N04",
+      "kind": "digits",
+      "readable": true,
+      "answer": "0042",
+      "unit": null,
+      "image_path": "images/network_N04.png"
+    },
+    {
+      "id": "I06",
+      "target_id": "N05",
+      "kind": "digits",
+      "readable": true,
+      "answer": "19.07",
+      "unit": null,
+      "image_path": "images/network_N05.png"
+    },
+    {
+      "id": "I07",
+      "target_id": "T06",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "20.6",
+      "unit": "C",
+      "image_path": "images/network_T06.png"
+    },
+    {
+      "id": "I08",
+      "target_id": "N06",
+      "kind": "digits",
+      "readable": true,
+      "answer": "-12",
+      "unit": null,
+      "image_path": "images/network_N06.png"
+    },
+    {
+      "id": "I09",
+      "target_id": "T05",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "53.1",
+      "unit": "C",
+      "image_path": "images/network_T05.png"
+    },
+    {
+      "id": "I10",
+      "target_id": "T04",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "27.8",
+      "unit": "C",
+      "image_path": "images/network_T04.png"
+    },
+    {
+      "id": "I11",
+      "target_id": "T03",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "44.0",
+      "unit": "C",
+      "image_path": "images/network_T03.png"
+    },
+    {
+      "id": "I12",
+      "target_id": "T02",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "45.2",
+      "unit": "C",
+      "image_path": "images/network_T02.png"
+    }
+  ]
+}
