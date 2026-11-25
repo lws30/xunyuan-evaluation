@@ -1,0 +1,1076 @@
+{
+  "schema_version": "1.0",
+  "reference_id": "xunyuan-public-v3-candidate-20261125",
+  "status": "candidate_rules_not_frozen",
+  "scope": "Public 50m V3 development geometry, not the 12-point network demonstration or hidden official tests",
+  "rules": {
+    "sample_dt_s": 0.005,
+    "max_gap_s": 0.0075,
+    "dock_position_m": 0.15,
+    "dock_yaw_rad": 0.17453292519943295,
+    "dock_speed_mps": 0.03,
+    "dock_yaw_rate_rps": 0.05,
+    "dock_hold_s": 2.0,
+    "fall_angle_rad": 0.7853981633974483
+  },
+  "locomotion": [
+    {
+      "id": "M01_T1",
+      "group": "straight_turn",
+      "scene_id": "M01",
+      "timeout_s": 60,
+      "exit": {
+        "center_m": [
+          3.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M01_T2",
+      "group": "straight_turn",
+      "scene_id": "M01",
+      "timeout_s": 60,
+      "exit": {
+        "center_m": [
+          3.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M01_T3",
+      "group": "straight_turn",
+      "scene_id": "M01",
+      "timeout_s": 60,
+      "exit": {
+        "center_m": [
+          3.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M02_T1",
+      "group": "straight_turn",
+      "scene_id": "M02",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2,
+          2.5,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M02_T2",
+      "group": "straight_turn",
+      "scene_id": "M02_right",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2,
+          -2.5,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M02_T3",
+      "group": "straight_turn",
+      "scene_id": "M02",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2,
+          2.5,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M03_T1",
+      "group": "slopes",
+      "scene_id": "M03",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.3882285676537811
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M03_T2",
+      "group": "slopes",
+      "scene_id": "M03",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.3882285676537811
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M03_T3",
+      "group": "slopes",
+      "scene_id": "M03",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.3882285676537811
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M04_T1",
+      "group": "slopes",
+      "scene_id": "M04",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M04_T2",
+      "group": "slopes",
+      "scene_id": "M04",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M04_T3",
+      "group": "slopes",
+      "scene_id": "M04",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          2.1488887394336027,
+          0,
+          0.0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M05_T1",
+      "group": "stairs_up",
+      "scene_id": "M05",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0.6
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M05_T2",
+      "group": "stairs_up",
+      "scene_id": "M05",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0.6
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M05_T3",
+      "group": "stairs_up",
+      "scene_id": "M05",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0.6
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M06_T1",
+      "group": "stairs_down",
+      "scene_id": "M06",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M06_T2",
+      "group": "stairs_down",
+      "scene_id": "M06",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M06_T3",
+      "group": "stairs_down",
+      "scene_id": "M06",
+      "timeout_s": 120,
+      "exit": {
+        "center_m": [
+          1.9,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M08_T1",
+      "group": "friction",
+      "scene_id": "M08",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          4.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M08_T2",
+      "group": "friction",
+      "scene_id": "M08",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          4.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    },
+    {
+      "id": "M08_T3",
+      "group": "friction",
+      "scene_id": "M08",
+      "timeout_s": 90,
+      "exit": {
+        "center_m": [
+          4.0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width_m": 0.5
+      }
+    }
+  ],
+  "rounds": [
+    {
+      "id": "R1",
+      "scene_id": "patrol_round1",
+      "timeout_s": 600,
+      "gates": {
+        "J1_E": {
+          "center_m": [
+            9.0,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_N": {
+          "center_m": [
+            8,
+            1.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_S": {
+          "center_m": [
+            8,
+            -1.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_W": {
+          "center_m": [
+            7.0,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_E": {
+          "center_m": [
+            9.0,
+            9,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_N": {
+          "center_m": [
+            8,
+            10.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_W": {
+          "center_m": [
+            7.0,
+            9,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_S": {
+          "center_m": [
+            8,
+            8.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "HOME": {
+          "center_m": [
+            0.7,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        }
+      },
+      "navigation": [
+        {
+          "id": "N01",
+          "candidates": [
+            "J1_E",
+            "J1_N",
+            "J1_S"
+          ],
+          "correct_gate": "J1_N"
+        },
+        {
+          "id": "N02",
+          "candidates": [
+            "J2_E",
+            "J2_N",
+            "J2_W"
+          ],
+          "correct_gate": "J2_E"
+        },
+        {
+          "id": "N03",
+          "candidates": [
+            "J2_W",
+            "J2_N",
+            "J2_S"
+          ],
+          "correct_gate": "J2_S"
+        },
+        {
+          "id": "N04",
+          "candidates": [
+            "J1_E",
+            "J1_S",
+            "J1_W"
+          ],
+          "correct_gate": "J1_W"
+        },
+        {
+          "id": "N05",
+          "candidates": [
+            "HOME"
+          ],
+          "correct_gate": "HOME"
+        }
+      ],
+      "docking": [
+        {
+          "id": "D01",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N01",
+          "before_nav": "N02"
+        },
+        {
+          "id": "D02",
+          "target_id": "B",
+          "position_m": [
+            12,
+            9,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N02",
+          "before_nav": "N03"
+        },
+        {
+          "id": "D03",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N03",
+          "before_nav": "N04"
+        },
+        {
+          "id": "D04",
+          "target_id": "G0",
+          "position_m": [
+            0,
+            0,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N05",
+          "before_nav": null
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "scene_id": "patrol_round2",
+      "timeout_s": 600,
+      "gates": {
+        "J1_E": {
+          "center_m": [
+            9.0,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_N": {
+          "center_m": [
+            8,
+            1.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_S": {
+          "center_m": [
+            8,
+            -1.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_W": {
+          "center_m": [
+            7.0,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_E": {
+          "center_m": [
+            9.0,
+            9,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_N": {
+          "center_m": [
+            8,
+            10.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_W": {
+          "center_m": [
+            7.0,
+            9,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_S": {
+          "center_m": [
+            8,
+            8.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "HOME": {
+          "center_m": [
+            0.7,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        }
+      },
+      "navigation": [
+        {
+          "id": "N01",
+          "candidates": [
+            "J1_E",
+            "J1_N",
+            "J1_S"
+          ],
+          "correct_gate": "J1_N"
+        },
+        {
+          "id": "N02",
+          "candidates": [
+            "J2_E",
+            "J2_N",
+            "J2_W"
+          ],
+          "correct_gate": "J2_E"
+        },
+        {
+          "id": "N03",
+          "candidates": [
+            "J2_W",
+            "J2_N",
+            "J2_S"
+          ],
+          "correct_gate": "J2_S"
+        },
+        {
+          "id": "N04",
+          "candidates": [
+            "J1_E",
+            "J1_S",
+            "J1_W"
+          ],
+          "correct_gate": "J1_W"
+        },
+        {
+          "id": "N05",
+          "candidates": [
+            "HOME"
+          ],
+          "correct_gate": "HOME"
+        }
+      ],
+      "docking": [
+        {
+          "id": "D01",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N01",
+          "before_nav": "N02"
+        },
+        {
+          "id": "D02",
+          "target_id": "B",
+          "position_m": [
+            12,
+            9,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N02",
+          "before_nav": "N03"
+        },
+        {
+          "id": "D03",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N03",
+          "before_nav": "N04"
+        },
+        {
+          "id": "D04",
+          "target_id": "G0",
+          "position_m": [
+            0,
+            0,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N05",
+          "before_nav": null
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "scene_id": "patrol_round3",
+      "timeout_s": 600,
+      "gates": {
+        "J1_E": {
+          "center_m": [
+            9.0,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_N": {
+          "center_m": [
+            8,
+            1.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_S": {
+          "center_m": [
+            8,
+            -1.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J1_W": {
+          "center_m": [
+            7.0,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_E": {
+          "center_m": [
+            9.0,
+            9,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_N": {
+          "center_m": [
+            8,
+            10.0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_W": {
+          "center_m": [
+            7.0,
+            9,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "J2_S": {
+          "center_m": [
+            8,
+            8.0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width_m": 0.5
+        },
+        "HOME": {
+          "center_m": [
+            0.7,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width_m": 0.5
+        }
+      },
+      "navigation": [
+        {
+          "id": "N01",
+          "candidates": [
+            "J1_E",
+            "J1_N",
+            "J1_S"
+          ],
+          "correct_gate": "J1_N"
+        },
+        {
+          "id": "N02",
+          "candidates": [
+            "J2_E",
+            "J2_N",
+            "J2_W"
+          ],
+          "correct_gate": "J2_E"
+        },
+        {
+          "id": "N03",
+          "candidates": [
+            "J2_W",
+            "J2_N",
+            "J2_S"
+          ],
+          "correct_gate": "J2_S"
+        },
+        {
+          "id": "N04",
+          "candidates": [
+            "J1_E",
+            "J1_S",
+            "J1_W"
+          ],
+          "correct_gate": "J1_W"
+        },
+        {
+          "id": "N05",
+          "candidates": [
+            "HOME"
+          ],
+          "correct_gate": "HOME"
+        }
+      ],
+      "docking": [
+        {
+          "id": "D01",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N01",
+          "before_nav": "N02"
+        },
+        {
+          "id": "D02",
+          "target_id": "B",
+          "position_m": [
+            12,
+            9,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N02",
+          "before_nav": "N03"
+        },
+        {
+          "id": "D03",
+          "target_id": "A",
+          "position_m": [
+            8,
+            4,
+            0
+          ],
+          "yaw_rad": 0.0,
+          "after_nav": "N03",
+          "before_nav": "N04"
+        },
+        {
+          "id": "D04",
+          "target_id": "G0",
+          "position_m": [
+            0,
+            0,
+            0
+          ],
+          "yaw_rad": 1.5707963267948966,
+          "after_nav": "N05",
+          "before_nav": null
+        }
+      ]
+    }
+  ]
+}

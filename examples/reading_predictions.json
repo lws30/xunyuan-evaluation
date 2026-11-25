@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "id": "R1/D01",
+      "target_id": "A",
+      "status": "ok",
+      "value": "00127",
+      "unit": null
+    },
+    {
+      "id": "R1/D02",
+      "target_id": "B",
+      "status": "ok",
+      "value": "31.4",
+      "unit": "C"
+    },
+    {
+      "id": "R1/D03",
+      "target_id": "A",
+      "status": "abstain",
+      "reason": "occluded"
+    }
+  ]
+}

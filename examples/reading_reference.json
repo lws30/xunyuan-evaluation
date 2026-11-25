@@ -1,0 +1,26 @@
+{
+  "temperature_tolerance_C": "0.1",
+  "scope": "Synthetic public protocol examples only",
+  "events": [
+    {
+      "id": "R1/D01",
+      "target_id": "A",
+      "kind": "digits",
+      "readable": true,
+      "answer": "00127"
+    },
+    {
+      "id": "R1/D02",
+      "target_id": "B",
+      "kind": "temperature_display",
+      "readable": true,
+      "answer": "31.4"
+    },
+    {
+      "id": "R1/D03",
+      "target_id": "A",
+      "kind": "digits",
+      "readable": false
+    }
+  ]
+}
